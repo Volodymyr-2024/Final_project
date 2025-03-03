@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: "Roboto", serif;
+}
