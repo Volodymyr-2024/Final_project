@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "./FormLogin.module.css";
 import { useState } from "react";
 import { loginUser } from "../../constants/api";
+import { useNavigate } from "react-router-dom";
 
 function FormLogin(props) {
   const [loginInput, setLoginInput] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setLoginInput(event.target.value);
@@ -25,7 +28,8 @@ function FormLogin(props) {
     try {
       const response = await loginUser(loginData);
       setMessage("Login successfully!");
-      console.log(response.token);
+      navigate("/main");
+      localStorage.setItem("token", response.token);
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }

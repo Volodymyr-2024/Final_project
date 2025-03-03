@@ -1,0 +1,27 @@
+.wripper {
+  max-width: 244px;
+  border-right: 1px solid #fafafa;
+}
+.logo_container {
+  margin: 28px 0 33px 25px;
+}
+.nav {
+  margin-left: 24px;
+}
+.nav_icon_container {
+  display: flex;
+  align-items: center;
+}
+.nav_icon_container:not(:last-child) {
+  margin-bottom: 32px;
+}
+.nav_icon_container:last-child {
+  margin-top: 60px;
+}
+.nav_icon_container > img {
+  margin-right: 16px;
+}
+.last_img {
+  border-radius: 50%;
+  border: 1px solid #dbdbdb;
+}

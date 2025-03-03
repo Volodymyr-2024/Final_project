@@ -3,8 +3,8 @@ import "./App.css";
 
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import Footer from "./components/Footer/Footer";
 import ResetPage from "./pages/ResetPage";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/register" element={<SignupPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/main" element={<Footer />}></Route>
         <Route path="/reset" element={<ResetPage />}></Route>
+        <Route path="/main" element={<MainPage />}></Route>
       </Routes>
     </div>
   );
