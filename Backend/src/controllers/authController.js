@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 export const registerUser = async (req, res) => {
   try {
@@ -45,6 +46,27 @@ export const loginUser = async (req, res) => {
     });
   } catch (error) {
     console.error("Login error:", error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, username } = req.body;
+    const existingUser = email
+      ? await User.findOne({ email })
+      : await User.findOne({ username });
+    if (!existingUser) {
+      return res.status(401).json({ message: "User not found" });
+    }
+    const newPassword = Math.random().toString(36).slice(-5);
+    existingUser.password = newPassword;
+    await existingUser.save();
+    res.status(200).json({
+      message: "New password has been generated and sent!",
+      newPassword,
+    });
+  } catch (error) {
+    console.error("Password reset error:", error);
     return res.status(500).json({ error: error.message });
   }
 };

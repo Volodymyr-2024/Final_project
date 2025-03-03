@@ -25,3 +25,12 @@ export const loginUser = async (userdata) => {
     throw error.response?.data || error.message || "Unknown error";
   }
 };
+
+export const resetPassword = async (userdata) => {
+  try {
+    const response = await api.post("/auth/reset", userdata);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message || "Unknown error";
+  }
+};

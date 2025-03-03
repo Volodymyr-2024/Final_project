@@ -25,7 +25,7 @@ function FormLogin(props) {
     try {
       const response = await loginUser(loginData);
       setMessage("Login successfully!");
-      console.log(response);
+      console.log(response.token);
     } catch (error) {
       setMessage(`Error: ${error.message}`);
     }
@@ -54,13 +54,14 @@ function FormLogin(props) {
           />
         </div>
         <button>Sign up</button>
-        
         <div className={styles.or}>
           <span className={styles.lineLeft}></span>
           <p>OR</p>
           <span className={styles.lineRigth}></span>
         </div>
-        <p>Forgot password?</p>
+        <Link to="/reset" className={styles.forgot}>
+          <p>Forgot password?</p>
+        </Link>
       </div>
       <div className={styles.account_container}>
         <p>
@@ -70,7 +71,6 @@ function FormLogin(props) {
           </Link>
         </p>
       </div>
-      
     </form>
   );
 }

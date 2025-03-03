@@ -4,6 +4,7 @@ import "./App.css";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Footer from "./components/Footer/Footer";
+import ResetPage from "./pages/ResetPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<SignupPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/main" element={<Footer />}></Route>
+        <Route path="/reset" element={<ResetPage />}></Route>
       </Routes>
     </div>
   );
