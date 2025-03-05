@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
   },
+  bio: {
+    type: String,
+    default: "",
+  },
+  profileImage: {
+    type: String,
+    default: "",
+  },
 });
 
 userSchema.pre("save", async function (next) {

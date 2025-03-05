@@ -19,7 +19,7 @@ export const getProfile = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { username, bio } = req.body;
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -28,11 +28,11 @@ export const updateProfile = async (req, res) => {
     if (req.file) {
       user.profileImage = `data:${
         req.file.mimetype
-      }; base64,${req.file.buffer.toString("base64")}`;
+      };base64,${req.file.buffer.toString("base64")}`;
     }
     await user.save();
-    res.jason({ message: "Profile updated", user });
+    res.json({ message: "Profile updated", user });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
