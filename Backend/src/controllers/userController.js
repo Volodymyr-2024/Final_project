@@ -1,5 +1,5 @@
 import multer from "multer";
-import { User } from "../models/userModel.js";
+import User from "../models/userModel.js";
 
 const storage = multer.memoryStorage();
 export const upload = multer({ storage: storage });

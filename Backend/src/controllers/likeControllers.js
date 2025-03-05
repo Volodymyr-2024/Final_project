@@ -1,4 +1,4 @@
-import { Like } from "../models/likeModel.js";
+import Like from "../models/likeModel.js";
 
 export const toggleLike = async (req, res) => {
   try {
@@ -19,7 +19,10 @@ export const toggleLike = async (req, res) => {
 export const getLikesByPost = async (req, res) => {
   try {
     const { postId } = req.body;
-    const likes = await Like.find({ post: postId }).populate("user", "username");
+    const likes = await Like.find({ post: postId }).populate(
+      "user",
+      "username"
+    );
     res.json(likes);
   } catch (error) {
     res.status(500).json({ message: error.message });

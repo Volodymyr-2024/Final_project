@@ -1,11 +1,12 @@
 import express from "express";
 import "dotenv/config";
 import { connectDB } from "./config/db.js";
-import authRoutes from "./routers/authRoutes.js";
-import userRoutes from "./routers/userRoutes.js";
-import postRoutes from "./routers/postRoutes.js";
-import likeRoutes from "./routes/likeRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import likeRoutes from "./routes/likesRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import searchRoutes from "./routes/searchRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("/profile", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/", likeRoutes);
 app.use("/", commentRoutes);
+app.use("/search", searchRoutes);
 
 app.use(express.json());
 
