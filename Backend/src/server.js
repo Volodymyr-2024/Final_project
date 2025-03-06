@@ -10,6 +10,7 @@ import likeRoutes from "./routes/likesRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import searchRoutes from "./routes/searchRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
+import followRoutes from "./routes/followRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -37,6 +38,7 @@ app.use("/", likeRoutes);
 app.use("/", commentRoutes);
 app.use("/search", searchRoutes);
 app.use("/messages", messageRoutes);
+app.use("/", followRoutes);
 
 io.on("connection", (socket) => {
   console.log("Пользователь подключен:", socket.id);
