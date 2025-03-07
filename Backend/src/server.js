@@ -11,6 +11,7 @@ import commentRoutes from "./routes/commentRoutes.js";
 import searchRoutes from "./routes/searchRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import followRoutes from "./routes/followRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -39,13 +40,14 @@ app.use("/", commentRoutes);
 app.use("/search", searchRoutes);
 app.use("/messages", messageRoutes);
 app.use("/", followRoutes);
+app.use("/notifications", notificationRoutes);
 
 io.on("connection", (socket) => {
-  console.log("Пользователь подключен:", socket.id);
+  console.log("User Connected:", socket.id);
 
   socket.on("joinRoom", (userId) => {
     socket.join(userId); // Добавляем пользователя в комнату с его userId
-    console.log(`Пользователь ${userId} вошел в чат`);
+    console.log(`Гыук ${userId} logged into the chat room`);
   });
 
   socket.on("sendMessage", ({ senderId, receiverId, messageText }) => {
@@ -54,7 +56,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("Пользователь отключился:", socket.id);
+    console.log("The user disconnected:", socket.id);
   });
 });
 
