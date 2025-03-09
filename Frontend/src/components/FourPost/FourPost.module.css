@@ -1,0 +1,11 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 404px 404px;
+  gap: 23px 39px;
+  padding: 58px 0 17px 77px;
+}
+.button_wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

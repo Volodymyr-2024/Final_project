@@ -1,4 +1,5 @@
 import multer from "multer";
+import sharp from "sharp";
 import User from "../models/userModel.js";
 
 const storage = multer.memoryStorage();
@@ -23,12 +24,18 @@ export const updateProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    if (username) user.name = username;
+    if (username) user.username = username;
     if (bio) user.bio = bio;
     if (req.file) {
+      const compressedImage = await sharp(req.file.buffer)
+        .resize(150, 150, {
+          fit: sharp.fit.cover,
+        })
+        .toBuffer();
+
       user.profileImage = `data:${
         req.file.mimetype
-      };base64,${req.file.buffer.toString("base64")}`;
+      };base64,${compressedImage.toString("base64")}`;
     }
     await user.save();
     res.json({ message: "Profile updated", user });

@@ -4,11 +4,11 @@ const postSchema = new mongoose.Schema(
   {
     description: {
       type: String,
-      requered: true,
+      required: true,
     },
     image: {
       type: String,
-      required: true,
+      default: "",
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
