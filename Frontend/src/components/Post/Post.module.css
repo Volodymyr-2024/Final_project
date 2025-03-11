@@ -1,5 +1,6 @@
 .wrapper {
   position: relative;
+  border-bottom: 1px solid #dbdbdb;
 }
 .header {
   display: flex;
@@ -83,4 +84,21 @@
   position: absolute;
   top: -5px;
   left: -5px;
+}
+.description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  margin: 8px 0;
+}
+.comments {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #737373;
+  margin-bottom: 37px;
+  cursor: pointer;
 }

@@ -1,6 +1,6 @@
 .wrapper {
   width: 244px;
-  border-right: 1px solid #fafafa;
+  border-right: 1px solid #dbdbdb;
 }
 .logo_container {
   margin: 28px 0 33px 25px;
@@ -35,4 +35,11 @@
 }
 .active {
   font-weight: 700;
+}
+.icon {
+  filter: grayscale(100%) brightness(0%);
+}
+
+.icon_active {
+  filter: grayscale(0%) brightness(100%);
 }

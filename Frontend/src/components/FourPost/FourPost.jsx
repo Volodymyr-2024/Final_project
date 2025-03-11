@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Post from "../Post/Post";
 import styles from "./FourPost.module.css";
 import { fetchFourPosts } from "../../constants/api";
+import all_comments from "../../assets/all_comments.svg";
 
 function FourPost() {
   const [posts, setPosts] = useState([]);
@@ -56,12 +57,19 @@ function FourPost() {
       </div>
       <div className={styles.button_wrapper}>
         <button onClick={handlePrevPage} disabled={page === 1}>
-          Назад
+          Back
         </button>
         <button onClick={handleNextPage} disabled={posts.length < 4}>
-          Вперед
+          Forward
         </button>
       </div>
+      {posts.length < 4 && (
+        <div className={styles.all_updates}>
+          <img src={all_comments} alt="all_comment_image" />
+          <h3>You've seen all the updates</h3>
+          <p>You have viewed all new publications</p>
+        </div>
+      )}
     </div>
   );
 }

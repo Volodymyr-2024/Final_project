@@ -37,25 +37,11 @@ function Post({ post }) {
       <img src={like} alt="like_image" className={styles.like_img} />
       <img src={comment} alt="comment_image" />
       <p className={styles.likes}>{click} likes</p>
-      <p>{post.description || "Нет описания"}</p>
+      <p className={styles.description}>{post.description || "Нет описания"}</p>
       <div>
-        <p>Количество комментариев: {post.commentCount}</p>
-      </div>
-      <div>
-        <h3>Последние комментарии:</h3>
-        <ul>
-          {post.comments && post.comments.length > 0 ? (
-            post.comments.map((comment) => (
-              <li key={comment._id}>
-                <p>
-                  {comment.user.username}: {comment.text}
-                </p>
-              </li>
-            ))
-          ) : (
-            <li>Нет комментариев</li>
-          )}
-        </ul>
+        <p className={styles.comments}>
+          View all comments: ({post.commentCount})
+        </p>
       </div>
     </div>
   );

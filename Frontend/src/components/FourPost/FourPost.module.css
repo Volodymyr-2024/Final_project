@@ -9,3 +9,38 @@
   justify-content: center;
   margin-top: 10px;
 }
+.button_wrapper > button:not(:last-child) {
+  margin-right: 15px;
+}
+.button_wrapper > button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.all_updates {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 0 57px;
+  margin: 10px 0 17px;
+}
+.all_updates > img {
+  width: 83px;
+  height: 83px;
+}
+.all_updates > h3 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #000000;
+  margin: 11px 0 4px;
+}
+.all_updates > p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #737373;
+}

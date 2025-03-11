@@ -1,0 +1,70 @@
+.wrapper {
+  width: 397px;
+  position: absolute;
+  top: 0;
+  left: 244px;
+  z-index: 2;
+  height: 100%;
+  background-color: #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.img_container {
+  cursor: pointer;
+}
+.clean {
+  position: absolute;
+  top: 93px;
+  right: 28px;
+}
+.wrapper > h2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  color: #000000;
+  margin: 16px 0 39px 24px;
+}
+.wrapper > input::placeholder {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+  color: #737373;
+}
+.wrapper > input {
+  position: relative;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  width: 91%;
+  margin: 0 16px;
+  background-color: #efefef;
+}
+.user_container {
+  display: flex;
+  margin: 30px 0 0 24px;
+  align-items: center;
+  gap: 8px;
+}
+.user_container > img {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+}
+.user_container > p {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+.recent {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+  padding: 22px 0 0 24px;
+}
