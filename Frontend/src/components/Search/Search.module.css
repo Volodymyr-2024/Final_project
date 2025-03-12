@@ -10,6 +10,9 @@
   border-bottom-right-radius: 10px;
 }
 .img_container {
+  all: unset;
+}
+.img_container > img {
   cursor: pointer;
 }
 .clean {

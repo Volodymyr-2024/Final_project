@@ -44,7 +44,7 @@ function Search(props) {
       <button className={styles.img_container} onClick={handleClean}>
         <img src={clean} alt="clean_icon" className={styles.clean} />
       </button>
-      {loading && <p>Loading...</p>}
+      {loading && <p style={{marginLeft: 20}}>Loading...</p>}
       <p className={styles.recent}>Recent</p>
       <div className={styles.results}>
         {results.length > 0 ? (

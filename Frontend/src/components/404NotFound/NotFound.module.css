@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  max-width: 1195px;
+}
+.img_container {
+  padding: 94px 44px 185px 119px;
+}
+.text_container {
+  margin-top: 141px;
+}
+.text_container > h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 20px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.text_container > p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #737373;
+  max-width: 475px;
+}

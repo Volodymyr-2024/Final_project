@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import SearchPage from "./pages/SearchPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ExplorePage from "./pages/ExplorePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/notifications" element={<NotificationsPage />}></Route>
         <Route path="/explore" element={<ExplorePage />}></Route>
         <Route path="/profile/:id" element={<ProfilePage />}></Route>
+        <Route path="/*" element={<NotFoundPage />}></Route>
       </Routes>
     </div>
   );
