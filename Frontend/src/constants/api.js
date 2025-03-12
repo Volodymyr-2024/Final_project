@@ -69,3 +69,51 @@ export const getNotifications = async () => {
     );
   }
 };
+
+export const getUserData = async (userId) => {
+  try {
+    const response = await api.get(`/profile/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error.response || error);
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "Error fetching user data"
+    );
+  }
+};
+
+export const getUserPost = async (userId, token) => {
+  try {
+    const response = await api.get(`/posts`, {
+      params: {
+        author: userId,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+};
+
+export const getFollowers = async (userId) => {
+  try {
+    const response = await api.get(`/followers/${userId}/followers`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch followers: " + error.message);
+  }
+};
+
+export const getFollowing = async (userId) => {
+  try {
+    const response = await api.get(`/followers/${userId}/following`);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch following: " + error.message);
+  }
+};

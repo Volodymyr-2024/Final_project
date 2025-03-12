@@ -26,7 +26,7 @@ app.use("/", likeRoutes);
 app.use("/", commentRoutes);
 app.use("/search", searchRoutes);
 app.use("/messages", messageRoutes);
-app.use("/", followRoutes);
+app.use("/followers", followRoutes);
 app.use("/notifications", notificationRoutes);
 
 export default app;

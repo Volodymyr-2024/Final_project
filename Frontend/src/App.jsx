@@ -21,7 +21,7 @@ function App() {
         <Route path="/search" element={<SearchPage />}></Route>
         <Route path="/notifications" element={<NotificationsPage />}></Route>
         <Route path="/explore" element={<ExplorePage />}></Route>
-        <Route path="/profile" element={<ProfilePage />}></Route>
+        <Route path="/profile/:id" element={<ProfilePage />}></Route>
       </Routes>
     </div>
   );

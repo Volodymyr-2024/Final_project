@@ -9,22 +9,24 @@ import notifications from "../../assets/notifications.svg";
 import create from "../../assets/create.svg";
 import profile from "../../assets/profile.svg";
 
-const navLinks = [
-  { to: "/main", icon: home, label: "Home" },
-  { to: "/search", icon: search, label: "Search" },
-  { to: "/explore", icon: explore, label: "Explore" },
-  { to: "/messages", icon: messages, label: "Messages" },
-  { to: "/notifications", icon: notifications, label: "Notifications" },
-  { to: "/create", icon: create, label: "Create" },
-  {
-    to: "/profile",
-    icon: profile,
-    label: "Profile",
-    className: styles.last_img,
-  },
-];
-
 function BackMenu() {
+  const userId = localStorage.getItem("userId");
+
+  const navLinks = [
+    { to: "/main", icon: home, label: "Home" },
+    { to: "/search", icon: search, label: "Search" },
+    { to: "/explore", icon: explore, label: "Explore" },
+    { to: "/messages", icon: messages, label: "Messages" },
+    { to: "/notifications", icon: notifications, label: "Notifications" },
+    { to: "/create", icon: create, label: "Create" },
+    {
+      to: userId ? `/profile/${userId}` : "/login",
+      icon: profile,
+      label: "Profile",
+      className: styles.last_img,
+    },
+  ];
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo_container}>

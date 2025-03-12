@@ -27,11 +27,15 @@ function FormLogin(props) {
       : { username: loginInput, password };
     try {
       const response = await loginUser(loginData);
+
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("userId", response.userId);
       setMessage("Login successfully!");
       navigate("/main");
-      localStorage.setItem("token", response.token);
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      setMessage(
+        error.response?.data?.message || error.message || "Login failed"
+      );
     }
   };
   return (

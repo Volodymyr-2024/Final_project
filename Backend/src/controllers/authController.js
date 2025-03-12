@@ -37,17 +37,19 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(
       { userId: existingUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "365d" }
     );
     res.status(200).json({
       message: "Login is successfully!",
       token,
+      userId: existingUser._id,
     });
   } catch (error) {
     console.error("Login error:", error);
     return res.status(500).json({ error: error.message });
   }
 };
+
 export const resetPassword = async (req, res) => {
   try {
     const { email, username } = req.body;
