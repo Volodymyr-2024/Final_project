@@ -1,14 +1,14 @@
 import BackMenu from "../components/BackMenu/BackMenu";
 import Footer from "../components/Footer/Footer";
 import FourPost from "../components/FourPost/FourPost";
-import Search from "../components/Search/Search";
+import Notifications from "../components/Notifications/Notifications";
 
-function SearchPage(props) {
+function NotificationsPage(props) {
   return (
     <div>
       <div style={{ display: "flex", position: "relative" }}>
         <BackMenu />
-        <Search />
+        <Notifications />
         <div style={{ position: "relative", width: "100%" }}>
           <div
             style={{
@@ -29,4 +29,4 @@ function SearchPage(props) {
   );
 }
 
-export default SearchPage;
+export default NotificationsPage;

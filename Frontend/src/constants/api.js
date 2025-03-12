@@ -55,3 +55,17 @@ export const fetchFourPosts = async (page) => {
     throw error.response?.data || error.message || "Unknown error";
   }
 };
+
+export const getNotifications = async () => {
+  try {
+    const response = await api.get("/notifications");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching notifications:", error.response || error);
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "Error fetching notifications"
+    );
+  }
+};

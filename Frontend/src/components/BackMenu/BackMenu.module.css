@@ -1,5 +1,5 @@
 .wrapper {
-  width: 244px;
+  min-width: 244px;
   border-right: 1px solid #dbdbdb;
 }
 .logo_container {
