@@ -1,0 +1,133 @@
+.wrapper {
+  width: 944px;
+  padding: 48px 167px 124px 167px;
+}
+.wrapper > h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  color: #000000;
+  margin-bottom: 9px;
+}
+.newPhoto {
+  display: flex;
+  align-items: center;
+  background-color: #efefef;
+  border: none;
+  border-radius: 20px;
+  margin: 44px 0 33px;
+  padding: 16px;
+}
+.img_wrapper > img {
+  width: 56px;
+  height: 56px;
+  border: 1px solid #737373;
+  border-radius: 50%;
+}
+.username {
+  margin: 0 127px 0 16px;
+  align-self: flex-start;
+}
+.username > h4 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+  margin-bottom: 9px;
+}
+.username > p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #737373;
+  width: 265px;
+}
+.btn_wrapper > button {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #0095f6;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn_wrapper > button:hover {
+  background-color: #7ec2f0;
+}
+.input_wrapper {
+  margin-top: 21px;
+}
+.input_wrapper > h4 {
+  padding-bottom: 15px;
+}
+.input_wrapper > input {
+  width: 100%;
+  border: 1px solid#dbdbdb;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 17px;
+}
+.input_wrapper > input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+.btn_save > button {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #0095f6;
+  padding: 8px 94px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 67px;
+  cursor: pointer;
+}
+.btn_save > button:hover {
+  background-color: #7ec2f0;
+}
+
+.dialog {
+  padding: 20px;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  margin: 150px auto;
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+.dialog input {
+  margin: 10px 0;
+}
+.dialog_buttons {
+  margin-top: 10px;
+}
+.dialog_buttons button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.dialog_buttons button:first-child {
+  background: #4caf50;
+  color: white;
+}
+
+.dialog_buttons button:last-child {
+  background: #f44336;
+  color: white;
+}

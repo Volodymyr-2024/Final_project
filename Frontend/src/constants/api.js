@@ -117,3 +117,22 @@ export const getFollowing = async (userId) => {
     throw new Error("Failed to fetch following: " + error.message);
   }
 };
+
+export const updateUser = async (formData, token) => {
+  try {
+    const response = await api.put(`/profile/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user data:", error.response || error);
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "Error updating user data"
+    );
+  }
+};

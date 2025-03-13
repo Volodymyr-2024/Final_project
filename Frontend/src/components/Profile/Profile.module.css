@@ -11,7 +11,7 @@
   background-image: url("../../assets/wrapper_profile.svg");
   background-size: cover;
   background-position: center;
-  width: 168px;
+  min-width: 168px;
   height: 168px;
   margin: 23px 85px 78px 58px;
 }
@@ -47,6 +47,10 @@
   border-radius: 8px;
   width: 168px;
   height: 32px;
+  cursor: pointer;
+}
+.username > button:hover {
+  background-color: #dfd9d9;
 }
 .posts_count {
   display: flex;
@@ -80,4 +84,20 @@
 .posts > img {
   width: 307px;
   height: 307px;
+}
+.website {
+  margin-top: 19px;
+}
+.website > a {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #00376b;
+}
+.webIcon {
+  color: #00376b;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
 }

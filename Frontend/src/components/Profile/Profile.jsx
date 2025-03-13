@@ -1,6 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
+import web from "../../assets/web.svg";
+
 import {
   getFollowers,
   getFollowing,
@@ -9,6 +11,7 @@ import {
 } from "../../constants/api";
 
 function Profile(props) {
+  const navigate = useNavigate();
   const storedUserId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { id } = useParams();
@@ -52,7 +55,9 @@ function Profile(props) {
         <div className={styles.user_description}>
           <div className={styles.username}>
             <h4>{user.username}</h4>
-            <button>Edit profile</button>
+            <button onClick={() => navigate(`/edit-profile/${id}`)}>
+              Edit profile
+            </button>
           </div>
           <div className={styles.posts_count}>
             <p>
@@ -67,6 +72,14 @@ function Profile(props) {
             </p>
           </div>
           <span className={styles.bio}>{user.bio}</span>
+          {user.website && (
+            <div className={styles.website}>
+              <a href={user.website} rel="website">
+                <img src={web} alt="Website" className={styles.webIcon} />
+                {user.website}
+              </a>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.posts}>
