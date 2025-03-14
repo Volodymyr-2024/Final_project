@@ -100,6 +100,21 @@ export const getUserPost = async (userId, token) => {
   }
 };
 
+export const getPostById = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.get(`/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    throw error;
+  }
+};
+
 export const getFollowers = async (userId) => {
   try {
     const response = await api.get(`/followers/${userId}/followers`);

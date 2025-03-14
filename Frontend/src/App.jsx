@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 
 import SignupPage from "./pages/SignupPage";
@@ -11,22 +11,40 @@ import NotificationsPage from "./pages/NotificationsPage";
 import ExplorePage from "./pages/ExplorePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import EdirProfilePage from "./pages/EdirProfilePage";
+import BackMenu from "./components/BackMenu/BackMenu";
+import Footer from "./components/Footer/Footer";
 
 function App() {
+  const location = useLocation();
+  const hideLayoutPages = ["/register", "/login", "/reset"];
+  const hideLayout = hideLayoutPages.includes(location.pathname);
+
   return (
-    <div>
+    <div className="wrapper">
       <Routes>
-        <Route path="/register" element={<SignupPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/reset" element={<ResetPage />}></Route>
-        <Route path="/main" element={<MainPage />}></Route>
-        <Route path="/search" element={<SearchPage />}></Route>
-        <Route path="/notifications" element={<NotificationsPage />}></Route>
-        <Route path="/explore" element={<ExplorePage />}></Route>
-        <Route path="/profile/:id" element={<ProfilePage />}></Route>
-        <Route path="/edit-profile/:id" element={<EdirProfilePage />}></Route>
-        <Route path="/*" element={<NotFoundPage />}></Route>
+        <Route path="/register" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/reset" element={<ResetPage />} />
       </Routes>
+      {!hideLayout && (
+        <div className="main-content">
+          <div className="sidebar">
+            <BackMenu />
+          </div>
+          <div className="content">
+            <Routes>
+              <Route path="/main" element={<MainPage />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+              <Route path="/explore" element={<ExplorePage />} />
+              <Route path="/profile/:id" element={<ProfilePage />} />
+              <Route path="/edit-profile/:id" element={<EdirProfilePage />} />
+              <Route path="/*" element={<NotFoundPage />} />
+            </Routes>
+          </div>
+        </div>
+      )}
+      {!hideLayout && <Footer className="footer" />}
     </div>
   );
 }

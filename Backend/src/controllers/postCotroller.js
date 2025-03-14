@@ -65,7 +65,7 @@ export const deletePost = async (req, res) => {
 export const getPostById = async (req, res) => {
   const { id } = req.params;
   try {
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate("author").exec();
     if (!post) {
       return res.status(404).json({ message: "The post was not found" });
     }

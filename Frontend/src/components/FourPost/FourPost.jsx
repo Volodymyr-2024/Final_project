@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Post from "../Post/Post";
 import styles from "./FourPost.module.css";
 import { fetchFourPosts } from "../../constants/api";
@@ -10,7 +10,7 @@ function FourPost() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
 
-  const getPost = async () => {
+  const getPost = useCallback(async () => {
     try {
       setLoading(true);
       const data = await fetchFourPosts(page);
@@ -20,22 +20,11 @@ function FourPost() {
       setError(error);
       setLoading(false);
     }
-  };
+  }, [page]);
 
   useEffect(() => {
-    const getPost = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchFourPosts(page);
-        setPosts(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
     getPost();
-  }, [page]);
+  }, [page, getPost]);
 
   const handleNextPage = () => setPage(page + 1);
   const handlePrevPage = () => setPage(page - 1);

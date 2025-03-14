@@ -17,7 +17,7 @@ router.get("/fourposts", getFourPosts);
 router.get("/", authMiddleware, getPostsByUser);
 router.post("/", authMiddleware, upload.single("image"), createPost);
 router.delete("/:id", authMiddleware, deletePost);
-router.get("/:id", getPostById);
+router.get("/:id", authMiddleware, getPostById);
 router.put("/:id", authMiddleware, updatePost);
 
 export default router;

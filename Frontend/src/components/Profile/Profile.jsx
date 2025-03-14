@@ -9,6 +9,7 @@ import {
   getUserData,
   getUserPost,
 } from "../../constants/api";
+import PostCard from "../PostCard/PostCard";
 
 function Profile(props) {
   const navigate = useNavigate();
@@ -21,6 +22,21 @@ function Profile(props) {
   const [posts, setPosts] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleClick = (post) => {
+    setSelectedPostId(post._id), setIsModalOpen(true);
+    window.scrollTo(0, 0);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPostId(null);
+    setIsModalOpen(false);
+  };
+  isModalOpen
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "auto");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,17 +47,18 @@ function Profile(props) {
         const userPosts = await getUserPost(finalUserId, token);
         setPosts(userPosts || []);
 
-        const followersData = await getFollowers(id);
+        const followersData = await getFollowers(finalUserId);
         setFollowers(followersData || []);
 
-        const followingData = await getFollowing(id);
+        const followingData = await getFollowing(finalUserId);
         setFollowing(followingData);
       } catch (error) {
         console.error("Error fetching user data or posts:", error);
       }
     };
     fetchData();
-  }, [finalUserId]);
+  }, [finalUserId, id, token]);
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -82,11 +99,27 @@ function Profile(props) {
           )}
         </div>
       </div>
+      {isModalOpen && <div className={styles.overlay}></div>}
+
       <div className={styles.posts}>
-        {posts.slice(0, 6).map((post, id) => (
-          <img src={post.image} alt="" key={id} />
+        {posts.slice(0, 6).map((post) => (
+          <img
+            src={post.image}
+            alt="post_image"
+            key={post._id}
+            onClick={() => {
+              handleClick(post);
+            }}
+          />
         ))}
       </div>
+
+      {isModalOpen && (
+        <div className={styles.dialog}>
+          {selectedPostId && <PostCard postId={selectedPostId} />}
+          <button onClick={handleCloseModal}>Close</button>
+        </div>
+      )}
     </div>
   );
 }
