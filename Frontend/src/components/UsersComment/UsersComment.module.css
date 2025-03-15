@@ -1,0 +1,49 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.image_wrapper > img {
+  width: 27px;
+  height: 27px;
+  border: none;
+  border-radius: 50%;
+}
+.content_wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.username_text {
+  display: flex;
+  gap: 10px;
+}
+.username_text > h4 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11.864px;
+  line-height: 15px;
+  text-align: center;
+  color: #262626;
+}
+.username_text > p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #262626;
+}
+.likes > span {
+  margin-right: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #737373;
+}
+.img_likes {
+  cursor: pointer;
+}

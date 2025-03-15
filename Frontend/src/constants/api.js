@@ -5,6 +5,27 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+export const getData = (date) => {
+  const createdAt = new Date(date);
+  const now = new Date();
+  const timeDiff = now - createdAt;
+  const seconds = Math.floor(timeDiff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  let timeString = "";
+  if (days > 0) {
+    timeString = days === 1 ? "1 day" : `${days} days`;
+  } else if (hours > 0) {
+    timeString = hours === 1 ? "1 h" : `${hours} h`;
+  } else if (minutes > 0) {
+    timeString = minutes === 1 ? "1 min" : `${minutes} min`;
+  } else {
+    timeString = seconds === 1 ? "1 sec" : `${seconds} sec`;
+  }
+  return timeString;
+};
+
 export const registerUser = async (userdata) => {
   try {
     const response = await api.post("/auth/register", userdata);
@@ -48,7 +69,6 @@ export const fetchFourPosts = async (page) => {
       likeCount: post.likeCount,
       commentCount: post.commentCount,
     }));
-    console.log(posts);
     return posts;
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -149,5 +169,73 @@ export const updateUser = async (formData, token) => {
         error.message ||
         "Error updating user data"
     );
+  }
+};
+
+export const getCommentByPostId = async (postId) => {
+  try {
+    const response = await api.get(`/posts/${postId}/comments`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching comments:", error.response || error);
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch comments"
+    );
+  }
+};
+
+export const getLikesUsersByPostId = async (postId) => {
+  try {
+    const response = await api.get(`/posts/${postId}/likes-per-users`);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user data:", error.response || error);
+    return;
+  }
+};
+export const getCommentsUsersByPostId = async (postId) => {
+  try {
+    const response = await api.get(`/posts/${postId}/comments`);
+    return response.data.map((comment) => ({
+      ...comment,
+      user: comment.user,
+      image: comment.image,
+    }));
+  } catch (error) {
+    console.error("Error fetching comments:", error.response || error);
+    return [];
+  }
+};
+
+export const addComment = async (userId, postId, text) => {
+  try {
+    const response = await api.post("/posts/comment", {
+      userId,
+      postId,
+      text,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding comment:", error.response || error);
+    throw error;
+  }
+};
+
+export const toggleLike = async (userId, postId) => {
+  try {
+    const response = await api.post("/posts/like", { userId, postId });
+    return response.data;
+  } catch (error) {
+    console.error("Error toggling like:", error.response || error);
+    throw error;
+  }
+};
+export const checkUserLike = async (userId, postId) => {
+  try {
+    const response = await api.post("/posts/likes/check", { userId, postId });
+    return response.data;
+  } catch (error) {
+    console.error("Error checking like:", error.response || error);
+    throw error;
   }
 };

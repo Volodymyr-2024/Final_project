@@ -1,44 +1,65 @@
 import { useEffect, useState } from "react";
 import styles from "./PostCard.module.css";
-import { getPostById } from "../../constants/api";
+import {
+  getCommentsUsersByPostId,
+  getData,
+  getLikesUsersByPostId,
+  getPostById,
+} from "../../constants/api";
 import close from "../../assets/btn_close.svg";
+import UsersComment from "../UsersComment/UsersComment";
+import AddComments from "../AddComments/AddComments";
 
 function PostCard({ postId }) {
-  const [post, setPost] = useState([]);
-  const createdAt = new Date(post.createdAt);
-  const now = new Date();
-  const timeDiff = now - createdAt;
-  const seconds = Math.floor(timeDiff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  let timeString = "";
-  if (days > 0) {
-    timeString = days === 1 ? "1 day" : `${days} days`;
-  } else if (hours > 0) {
-    timeString = hours === 1 ? "1 h" : `${hours} h`;
-  } else if (minutes > 0) {
-    timeString = minutes === 1 ? "1 min" : `${minutes} min`;
-  } else {
-    timeString = seconds === 1 ? "1 sec" : `${seconds} sec`;
-  }
+  const [post, setPost] = useState(null);
+  const [arrLikes, setArrLikes] = useState([]);
+  const [arrComments, setArrComments] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getPost = async (postId) => {
       try {
-        const PostById = await getPostById(postId);
+        const [PostById, arrLikes, arrComments] = await Promise.all([
+          getPostById(postId),
+          getLikesUsersByPostId(postId),
+          getCommentsUsersByPostId(postId),
+        ]);
         setPost(PostById);
-        console.log(PostById);
+        setArrLikes(arrLikes || []);
+        setArrComments(arrComments || []);
       } catch (error) {
         console.error("Error fetching post:", error);
+        setError("Failed to load post data. Please try again later.");
       }
     };
+
     getPost(postId);
   }, [postId]);
+
+  const commentsWithLikes = arrComments.map((comment) => {
+    const likeInfo = arrLikes.find((like) => like.user === comment.user);
+    return {
+      ...comment,
+      likeCount: likeInfo ? likeInfo.likeCount : 0,
+      createdAt: getData(comment.createdAt),
+    };
+  });
+
+  console.log(arrComments);
+
+  const handleCommentAdded = (newComment) => {
+    setArrComments((prevComments) => [...prevComments, newComment]);
+  };
+
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
+  }
 
   if (!post) {
     return <div>Loading...</div>;
   }
+
+  const date = getData(post.createdAt);
 
   return (
     <div className={styles.wrapper}>
@@ -58,11 +79,29 @@ function PostCard({ postId }) {
             <img src={post.author?.profileImage} alt="photo_user" />
           </div>
           <div className={styles.description}>
-            <p>
-              {post.author?.username} {post.description}
-            </p>
-            <span>{timeString}</span>
+            <h4>{post.author?.username}</h4>
+            <p>{post.description}</p>
           </div>
+        </div>
+        <div className={styles.date}>
+          <span>{date}</span>
+          <span>Likes:</span>
+        </div>
+        <div className={styles.users_wrapper}>
+          {commentsWithLikes.map((comment, index) => (
+            <UsersComment
+              key={index}
+              username={comment.user}
+              image={comment.image}
+              text={comment.text}
+              likeCount={comment.likeCount}
+              createdAt={comment.createdAt}
+              postId={postId}
+            />
+          ))}
+        </div>
+        <div className={styles.add_comments}>
+          <AddComments postId={postId} onCommentAdded={handleCommentAdded} />
         </div>
       </div>
     </div>

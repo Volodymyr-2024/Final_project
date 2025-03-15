@@ -1,11 +1,13 @@
 .wrapper {
   display: flex;
   background-color: #ffffff;
+  height: 722px;
 }
 .right_wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 .user_wrapper {
   display: flex;
@@ -16,6 +18,12 @@
 }
 .user_wrapper > h4 {
   margin-right: 280px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11.864px;
+  line-height: 15px;
+  text-align: center;
+  color: #262626;
 }
 .photo_wrapper > img {
   width: 577px;
@@ -38,16 +46,54 @@
   border: none;
   border-radius: 50%;
 }
+.description {
+  display: flex;
+  gap: 5px;
+}
 .description_post {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 14px 26px 30px 14px;
+  padding: 14px 26px 0px 14px;
 }
 .description > span {
   font-style: normal;
   font-weight: 400;
-  font-size: 10.1691px;
+  font-size: 10px;
   line-height: 14px;
   color: #737373;
+}
+.description > h4 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #262626;
+}
+.description > p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #262626;
+}
+.date {
+  margin: 0 14px 16px 64px;
+}
+.date > span {
+  margin-right: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #737373;
+}
+.users_wrapper {
+  flex-grow: 1;
+  padding: 16px;
+}
+.add_comments {
+  margin-top: auto;
 }

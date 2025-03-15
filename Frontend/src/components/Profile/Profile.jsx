@@ -34,11 +34,23 @@ function Profile(props) {
     setSelectedPostId(null);
     setIsModalOpen(false);
   };
-  isModalOpen
-    ? (document.body.style.overflow = "hidden")
-    : (document.body.style.overflow = "auto");
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isModalOpen]);
 
   useEffect(() => {
+    if (!finalUserId) {
+      console.error("User ID is missing");
+      return;
+    }
     const fetchData = async () => {
       try {
         const userData = await getUserData(finalUserId);
