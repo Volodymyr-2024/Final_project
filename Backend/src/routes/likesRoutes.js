@@ -1,13 +1,15 @@
 import { Router } from "express";
 import {
   checkUserLike,
+  getLikeCountByPost,
   getLikesUserByPost,
   toggleLike,
 } from "../controllers/likeControllers.js";
 
 const router = Router();
 router.post("/like", toggleLike);
-router.post("/likes/check", checkUserLike);
-router.get("/:postId/likes-per-users", getLikesUserByPost);
+router.post("/check", checkUserLike);
+router.get("/likes-per-users/:postId", getLikesUserByPost);
+router.get("/like/:postId", getLikeCountByPost);
 
 export default router;

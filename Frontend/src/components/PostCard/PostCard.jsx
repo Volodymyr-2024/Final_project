@@ -9,6 +9,7 @@ import {
 import close from "../../assets/btn_close.svg";
 import UsersComment from "../UsersComment/UsersComment";
 import AddComments from "../AddComments/AddComments";
+import LikesPanel from "../LikesPanel/LikesPanel";
 
 function PostCard({ postId }) {
   const [post, setPost] = useState(null);
@@ -44,8 +45,6 @@ function PostCard({ postId }) {
       createdAt: getData(comment.createdAt),
     };
   });
-
-  console.log(arrComments);
 
   const handleCommentAdded = (newComment) => {
     setArrComments((prevComments) => [...prevComments, newComment]);
@@ -85,7 +84,6 @@ function PostCard({ postId }) {
         </div>
         <div className={styles.date}>
           <span>{date}</span>
-          <span>Likes:</span>
         </div>
         <div className={styles.users_wrapper}>
           {commentsWithLikes.map((comment, index) => (
@@ -99,6 +97,9 @@ function PostCard({ postId }) {
               postId={postId}
             />
           ))}
+        </div>
+        <div>
+          <LikesPanel postId={postId} />
         </div>
         <div className={styles.add_comments}>
           <AddComments postId={postId} onCommentAdded={handleCommentAdded} />

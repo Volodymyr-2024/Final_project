@@ -174,7 +174,7 @@ export const updateUser = async (formData, token) => {
 
 export const getCommentByPostId = async (postId) => {
   try {
-    const response = await api.get(`/posts/${postId}/comments`);
+    const response = await api.get(`/posts/comments/comment/${postId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching comments:", error.response || error);
@@ -186,7 +186,7 @@ export const getCommentByPostId = async (postId) => {
 
 export const getLikesUsersByPostId = async (postId) => {
   try {
-    const response = await api.get(`/posts/${postId}/likes-per-users`);
+    const response = await api.get(`/likes/likes-per-users/${postId}`);
     return response.data;
   } catch (error) {
     console.error("Error updating user data:", error.response || error);
@@ -195,7 +195,7 @@ export const getLikesUsersByPostId = async (postId) => {
 };
 export const getCommentsUsersByPostId = async (postId) => {
   try {
-    const response = await api.get(`/posts/${postId}/comments`);
+    const response = await api.get(`/posts/comments/comment/${postId}`);
     return response.data.map((comment) => ({
       ...comment,
       user: comment.user,
@@ -209,7 +209,7 @@ export const getCommentsUsersByPostId = async (postId) => {
 
 export const addComment = async (userId, postId, text) => {
   try {
-    const response = await api.post("/posts/comment", {
+    const response = await api.post("/posts/comments/comment", {
       userId,
       postId,
       text,
@@ -223,7 +223,7 @@ export const addComment = async (userId, postId, text) => {
 
 export const toggleLike = async (userId, postId) => {
   try {
-    const response = await api.post("/posts/like", { userId, postId });
+    const response = await api.post("/likes/like", { userId, postId });
     return response.data;
   } catch (error) {
     console.error("Error toggling like:", error.response || error);
@@ -232,10 +232,20 @@ export const toggleLike = async (userId, postId) => {
 };
 export const checkUserLike = async (userId, postId) => {
   try {
-    const response = await api.post("/posts/likes/check", { userId, postId });
+    const response = await api.post("/likes/check", { userId, postId });
     return response.data;
   } catch (error) {
     console.error("Error checking like:", error.response || error);
+    throw error;
+  }
+};
+
+export const getLikeCountByPost = async (postId) => {
+  try {
+    const response = await api.get(`/likes/like/${postId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching like count:", error);
     throw error;
   }
 };

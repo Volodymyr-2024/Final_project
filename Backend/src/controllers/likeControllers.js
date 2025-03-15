@@ -1,4 +1,5 @@
 import Like from "../models/likeModel.js";
+import Post from "../models/postModel.js";
 
 export const toggleLike = async (req, res) => {
   try {
@@ -48,6 +49,23 @@ export const checkUserLike = async (req, res) => {
     }
     const existingLike = await Like.findOne({ user: userId, post: postId });
     res.status(200).json({ isLiked: !!existingLike });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getLikeCountByPost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    if (!postId) {
+      return res.status(400).json({ message: "postId is required" });
+    }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    const likeCount = await Like.countDocuments({ post: postId });
+    res.status(200).json({ postId, likeCount, createdAt: post.createdAt });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

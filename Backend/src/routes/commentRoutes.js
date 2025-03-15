@@ -6,6 +6,6 @@ import {
 
 const router = Router();
 router.post("/comment", addComment);
-router.get("/:postId/comments", getCommentByPost);
+router.get("/comment/:postId", getCommentByPost);
 
 export default router;

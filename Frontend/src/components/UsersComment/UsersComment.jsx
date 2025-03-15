@@ -8,19 +8,19 @@ function UsersComment({ image, username, text, likeCount, createdAt, postId }) {
   const [isLiked, setIsLiked] = useState(false);
   const userId = localStorage.getItem("userId");
 
-  // useEffect(() => {
-  //   if (!userId || !postId) return;
-  //   const checkLike = async () => {
-  //     try {
-  //       const response = await checkUserLike(userId, postId);
-  //       setIsLiked(response.isLiked);
-  //     } catch (error) {
-  //       console.error("Error checking like:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    if (!userId || !postId) return;
+    const checkLike = async () => {
+      try {
+        const response = await checkUserLike(userId, postId);
+        setIsLiked(response.isLiked);
+      } catch (error) {
+        console.error("Error checking like:", error);
+      }
+    };
 
-  //   checkLike();
-  // }, [userId, postId]);
+    checkLike();
+  }, [userId, postId]);
 
   return (
     <div className={s.wrapper}>
