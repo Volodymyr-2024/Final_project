@@ -40,8 +40,8 @@ function FourPost() {
   return (
     <div>
       <div className={styles.wrapper}>
-        {posts.map((post, id) => (
-          <Post key={id} post={post} />
+        {posts.map((post, index) => (
+          <Post key={index} post={post} />
         ))}
       </div>
       <div className={styles.button_wrapper}>

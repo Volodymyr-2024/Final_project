@@ -127,3 +127,41 @@
   background-color: rgba(0, 0, 0, 0.65);
   z-index: 1;
 }
+
+.other_profile_btn_container {
+}
+.btn_follow {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+  padding: 7px 20px;
+  background-color: #0095f6;
+  border: none;
+  border-radius: 8px;
+  margin-right: 8px;
+  width: 132px;
+  cursor: pointer;
+}
+.btn_message {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  padding: 7px 20px;
+  background-color: #efefef;
+  border: none;
+  border-radius: 8px;
+  width: 190px;
+  cursor: pointer;
+}
+.btn_follow:hover {
+  background-color: #66bcf5;
+}
+.btn_message:hover {
+  background-color: #dbdbdb;
+}

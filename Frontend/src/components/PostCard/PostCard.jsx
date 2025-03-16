@@ -27,6 +27,7 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
           getLikesUsersByPostId(postId),
           getCommentsUsersByPostId(postId),
         ]);
+
         setPost(PostById);
         setArrLikes(arrLikes || []);
         setArrComments(arrComments || []);
@@ -61,6 +62,7 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
   }
 
   const date = getData(post.createdAt);
+  console.log(post.author._id);
 
   return (
     <div className={styles.wrapper}>
@@ -74,14 +76,16 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
             <img src={post.author?.profileImage} alt="photo_user" />
           </div>
           <h4>{post.author?.username}</h4>
-          <img
-            src={close}
-            alt="close_image"
-            className={styles.modal_open}
-            onClick={() => {
-              setIsModal(true);
-            }}
-          />
+          {post.author._id === localStorage.getItem("userId") && (
+            <img
+              src={close}
+              alt="close_image"
+              className={styles.modal_open}
+              onClick={() => {
+                setIsModal(true);
+              }}
+            />
+          )}
         </div>
         <div className={styles.description_post}>
           <div className={styles.img_wrapper}>

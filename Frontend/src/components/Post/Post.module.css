@@ -47,6 +47,7 @@
 }
 .post_img {
   margin: 12px 0 10px;
+  cursor: pointer;
 }
 .like_img {
   margin-right: 14px;

@@ -11,7 +11,7 @@ import {
 } from "../../constants/api";
 import PostCard from "../PostCard/PostCard";
 
-function Profile(props) {
+function Profile({ editUser }) {
   const navigate = useNavigate();
   const { search } = useLocation();
   const storedUserId = localStorage.getItem("userId");
@@ -98,14 +98,24 @@ function Profile(props) {
     <div className={styles.wrapper}>
       <div className={styles.user_wrapper}>
         <div className={styles.img_wrapper}>
-          <img src={user.profileImage} alt="image_profile" />
+          <img
+            src={user.profileImage || "/path/to/default-profile.png"}
+            alt="image_profile"
+          />
         </div>
         <div className={styles.user_description}>
           <div className={styles.username}>
             <h4>{user.username}</h4>
-            <button onClick={() => navigate(`/edit-profile/${id}`)}>
-              Edit profile
-            </button>
+            {editUser ? (
+              <button onClick={() => navigate(`/edit-profile/${id}`)}>
+                Edit profile
+              </button>
+            ) : (
+              <div className={styles.other_profile_btn_container}>
+                <button className={styles.btn_follow}>Follow</button>
+                <button className={styles.btn_message}>Message</button>
+              </div>
+            )}
           </div>
           <div className={styles.posts_count}>
             <p>

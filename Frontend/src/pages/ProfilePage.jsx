@@ -3,7 +3,7 @@ import Profile from "../components/Profile/Profile";
 function ProfilePage(props) {
   return (
     <div>
-      <Profile />
+      <Profile editUser={true} />
     </div>
   );
 }

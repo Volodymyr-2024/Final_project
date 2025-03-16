@@ -3,8 +3,13 @@ import border from "../../assets/border.svg";
 import like from "../../assets/like.svg";
 import comment from "../../assets/comment.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Post({ post }) {
+  const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+  console.log(post);
+
   const createdAt = new Date(post.createdAt);
   const currentDate = new Date();
   const differenceDate = currentDate - createdAt;
@@ -14,6 +19,12 @@ function Post({ post }) {
 
   const handleClick = () => {
     setClick((prev) => prev + 1);
+  };
+
+  const handleOpenPost = () => {
+    userId === post.authorId
+      ? navigate(`/profile/${userId}?postId=${post.postId}`)
+      : navigate(`/other-profile/${userId}?postId=${post.postId}`);
   };
 
   return (
@@ -33,7 +44,12 @@ function Post({ post }) {
           follow
         </button>
       </div>
-      <img src={post.image} alt="post.image" className={styles.post_img} />
+      <img
+        src={post.image}
+        alt="post.image"
+        className={styles.post_img}
+        onClick={handleOpenPost}
+      />
       <img src={like} alt="like_image" className={styles.like_img} />
       <img src={comment} alt="comment_image" />
       <p className={styles.likes}>{click} likes</p>

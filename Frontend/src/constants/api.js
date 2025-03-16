@@ -60,12 +60,14 @@ export const fetchFourPosts = async (page) => {
   try {
     const response = await api.get(`/posts/fourposts?page=${page}`);
     const posts = response.data.map((post) => ({
-      authorImage: post._doc.author.profileImage,
-      author: post._doc.author.username,
-      image: post._doc.image,
-      description: post._doc.description,
-      createdAt: post._doc.createdAt,
-      updatedAt: post._doc.updatedAt,
+      postId: post._id,
+      authorId: post.author._id,
+      authorImage: post.author.profileImage,
+      author: post.author.username,
+      image: post.image,
+      description: post.description,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
       likeCount: post.likeCount,
       commentCount: post.commentCount,
     }));
@@ -261,6 +263,28 @@ export const deletePost = async (postId, token) => {
   } catch (error) {
     throw new Error(
       error.response ? error.response.data.message : "An error occurred"
+    );
+  }
+};
+
+export const createPost = async (postData) => {
+  try {
+    const formData = new FormData();
+    formData.append("description", postData.description);
+    if (postData.image) {
+      formData.append("image", postData.image);
+    }
+    const response = await api.post("/posts/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating post:", error.response || error);
+    throw new Error(
+      error.response?.data?.message || error.message || "Error creating post"
     );
   }
 };

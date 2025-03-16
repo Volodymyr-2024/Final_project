@@ -115,7 +115,7 @@ export const getFourPosts = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const posts = await Post.find()
-      .populate("author", "username profileImage")
+      .populate("author", "_id username profileImage")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
@@ -131,7 +131,7 @@ export const getFourPosts = async (req, res) => {
           Like.countDocuments({ post: post._id }),
         ]);
         return {
-          ...post,
+          ...post.toObject(),
           commentCount,
           likeCount,
           comments,
