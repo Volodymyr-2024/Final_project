@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
 import web from "../../assets/web.svg";
@@ -13,6 +13,7 @@ import PostCard from "../PostCard/PostCard";
 
 function Profile(props) {
   const navigate = useNavigate();
+  const { search } = useLocation();
   const storedUserId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { id } = useParams();
@@ -25,14 +26,24 @@ function Profile(props) {
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const postIdFromUrl = new URLSearchParams(search).get("postId");
+
+  useEffect(() => {
+    if (postIdFromUrl) {
+      setSelectedPostId(postIdFromUrl);
+    }
+  }, [search]);
+
   const handleClick = (post) => {
     setSelectedPostId(post._id), setIsModalOpen(true);
+    navigate(`?postId=${post._id}`);
     window.scrollTo(0, 0);
   };
 
   const handleCloseModal = () => {
     setSelectedPostId(null);
     setIsModalOpen(false);
+    navigate(window.location.pathname);
   };
   useEffect(() => {
     if (isModalOpen) {
@@ -40,7 +51,6 @@ function Profile(props) {
     } else {
       document.body.style.overflow = "auto";
     }
-
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -70,6 +80,15 @@ function Profile(props) {
     };
     fetchData();
   }, [finalUserId, id, token]);
+
+  const handlePostDelete = async () => {
+    try {
+      const userPosts = await getUserPost(finalUserId, token);
+      setPosts(userPosts || []);
+    } catch (error) {
+      console.error("Error fetching posts after deletion:", error);
+    }
+  };
 
   if (!user) {
     return <div>Loading...</div>;
@@ -111,7 +130,7 @@ function Profile(props) {
           )}
         </div>
       </div>
-      {isModalOpen && <div className={styles.overlay}></div>}
+      {selectedPostId && <div className={styles.overlay}></div>}
 
       <div className={styles.posts}>
         {posts.slice(0, 6).map((post) => (
@@ -126,9 +145,15 @@ function Profile(props) {
         ))}
       </div>
 
-      {isModalOpen && (
+      {selectedPostId && (
         <div className={styles.dialog}>
-          {selectedPostId && <PostCard postId={selectedPostId} />}
+          {selectedPostId && (
+            <PostCard
+              postId={selectedPostId}
+              onPostDelete={handlePostDelete}
+              closePostCard={handleCloseModal}
+            />
+          )}
           <button onClick={handleCloseModal}>Close</button>
         </div>
       )}

@@ -10,12 +10,14 @@ import close from "../../assets/btn_close.svg";
 import UsersComment from "../UsersComment/UsersComment";
 import AddComments from "../AddComments/AddComments";
 import LikesPanel from "../LikesPanel/LikesPanel";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
-function PostCard({ postId }) {
+function PostCard({ postId, onPostDelete, closePostCard }) {
   const [post, setPost] = useState(null);
   const [arrLikes, setArrLikes] = useState([]);
   const [arrComments, setArrComments] = useState([]);
   const [error, setError] = useState(null);
+  const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
     const getPost = async (postId) => {
@@ -62,6 +64,7 @@ function PostCard({ postId }) {
 
   return (
     <div className={styles.wrapper}>
+      {isModal && <div className={styles.modal_background} />}
       <div className={styles.photo_wrapper}>
         <img src={post.image} alt="photo_image" />
       </div>
@@ -71,7 +74,14 @@ function PostCard({ postId }) {
             <img src={post.author?.profileImage} alt="photo_user" />
           </div>
           <h4>{post.author?.username}</h4>
-          <img src={close} alt="close_image" />
+          <img
+            src={close}
+            alt="close_image"
+            className={styles.modal_open}
+            onClick={() => {
+              setIsModal(true);
+            }}
+          />
         </div>
         <div className={styles.description_post}>
           <div className={styles.img_wrapper}>
@@ -105,6 +115,17 @@ function PostCard({ postId }) {
           <AddComments postId={postId} onCommentAdded={handleCommentAdded} />
         </div>
       </div>
+
+      {isModal && (
+        <ModalWindow
+          closeModal={() => {
+            setIsModal(false);
+            closePostCard();
+          }}
+          postId={postId}
+          onPostDelete={onPostDelete}
+        />
+      )}
     </div>
   );
 }

@@ -55,7 +55,7 @@ export const deletePost = async (req, res) => {
         .status(403)
         .json({ message: "There are no permissions to delete this post" });
     }
-    await post.remove();
+    await post.deleteOne();
     res.status(200).json({ message: "Post deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });

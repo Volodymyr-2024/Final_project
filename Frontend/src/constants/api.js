@@ -249,3 +249,18 @@ export const getLikeCountByPost = async (postId) => {
     throw error;
   }
 };
+
+export const deletePost = async (postId, token) => {
+  try {
+    const response = await api.delete(`/posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response ? error.response.data.message : "An error occurred"
+    );
+  }
+};
