@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 function Post({ post }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
-  console.log(post);
 
   const createdAt = new Date(post.createdAt);
   const currentDate = new Date();

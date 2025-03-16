@@ -1,16 +1,51 @@
 import Like from "../models/likeModel.js";
+import Notification from "../models/notificationModel.js";
 import Post from "../models/postModel.js";
+import User from "../models/userModel.js";
 
 export const toggleLike = async (req, res) => {
   try {
-    const { userId, postId } = req.body;
-    const existingLike = await Like.findOne({ user: userId, post: postId });
+    const { postId } = req.body;
+    if (!req.userId) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const existingLike = await Like.findOne({
+      user: req.userId,
+      post: postId,
+    });
+
     if (existingLike) {
       await Like.findByIdAndDelete(existingLike._id);
+      await Notification.findOneAndDelete({
+        userId: post.author,
+        type: "like",
+        postId: postId,
+      });
+
       return res.json({ message: "Like deleted" });
     }
-    const newLike = new Like({ user: userId, post: postId });
+
+    const newLike = new Like({ user: req.userId, post: postId });
     await newLike.save();
+    const notification = new Notification({
+      userId: post.author,
+      type: "like",
+      postId: postId,
+      message: `${user.username} liked your post`,
+    });
+    await notification.save();
+
     res.status(200).json({ message: "Like added", like: newLike });
   } catch (error) {
     res.status(500).json({ message: error.message });

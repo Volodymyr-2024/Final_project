@@ -79,8 +79,16 @@ export const fetchFourPosts = async (page) => {
 };
 
 export const getNotifications = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("User not authorized");
+  }
   try {
-    const response = await api.get("/notifications");
+    const response = await api.get("/notifications/", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching notifications:", error.response || error);

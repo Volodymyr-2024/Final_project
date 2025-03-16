@@ -62,7 +62,6 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
   }
 
   const date = getData(post.createdAt);
-  console.log(post.author._id);
 
   return (
     <div className={styles.wrapper}>

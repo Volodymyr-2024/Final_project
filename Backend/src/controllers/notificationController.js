@@ -1,14 +1,14 @@
 import Notification from "../models/notificationModel.js";
 
-export const getNotofocation = async (req, res) => {
+export const getNotification = async (req, res) => {
   try {
-    const notification = await Notification.find({ userId: req.user.id })
+    const notification = await Notification.find({ userId: req.userId })
       .sort({
         createdAt: -1,
       })
       .populate("userId", "username profileImage")
       .populate("postId", "image");
-    res.json(notification);
+    res.status(200).json(notification);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
