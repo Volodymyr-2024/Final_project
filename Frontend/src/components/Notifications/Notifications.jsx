@@ -32,14 +32,16 @@ function Notifications(props) {
                 alt={notif.userId?.username}
                 className={styles.avatar}
               />
-              <div className={styles.content}>
-                <p>
-                  <strong>{notif.userId?.username}</strong>{" "}
-                  {notif.type === "like" ? "liked" : "commented on"} your post
-                </p>
-                <span className={styles.date}>
+              <div className={styles.description}>
+                <div className={styles.content}>
+                  <h4>{notif.userId?.username}</h4>
+                  <p>
+                    {notif.type === "like" ? "liked" : "commented on"} your post
+                  </p>
+                </div>
+                <div className={styles.date}>
                   {new Date(notif.createdAt).toLocaleString()}
-                </span>
+                </div>
               </div>
               {notif.postId?.image && (
                 <img

@@ -50,7 +50,18 @@
   cursor: pointer;
 }
 .like_img {
+  width: 21px;
+  height: 21px;
   margin-right: 14px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.link_img:hover {
+  opacity: 0.8;
+}
+.like_img.liked {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%)
+    hue-rotate(346deg) brightness(104%) contrast(97%);
 }
 .likes {
   font-style: normal;

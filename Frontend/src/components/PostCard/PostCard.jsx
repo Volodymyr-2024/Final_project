@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./PostCard.module.css";
 import {
+  checkUserLike,
   getCommentsUsersByPostId,
   getData,
   getLikesUsersByPostId,
   getPostById,
+  toggleLike,
 } from "../../constants/api";
 import close from "../../assets/btn_close.svg";
 import UsersComment from "../UsersComment/UsersComment";
@@ -18,6 +20,36 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
   const [arrComments, setArrComments] = useState([]);
   const [error, setError] = useState(null);
   const [isModal, setIsModal] = useState(false);
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLikeClick = async () => {
+    const newIsLiked = !isLiked;
+    setIsLiked(newIsLiked);
+
+    try {
+      const response = await toggleLike(postId, token);
+      setIsLiked(response.isLiked);
+    } catch (error) {
+      console.error("Error toggling like:", error);
+      setIsLiked((prev) => !prev);
+    }
+  };
+  useEffect(() => {
+    if (!userId || !postId) return;
+    const checkLike = async () => {
+      try {
+        const response = await checkUserLike(userId, postId);
+        setIsLiked(response.isLiked);
+      } catch (error) {
+        console.error("Error checking like:", error);
+      }
+    };
+
+    checkLike();
+  }, [userId, postId]);
 
   useEffect(() => {
     const getPost = async (postId) => {
@@ -108,11 +140,16 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
               likeCount={comment.likeCount}
               createdAt={comment.createdAt}
               postId={postId}
+              like={isLiked}
             />
           ))}
         </div>
         <div>
-          <LikesPanel postId={postId} />
+          <LikesPanel
+            postId={postId}
+            handleLikeClick={handleLikeClick}
+            isLiked={isLiked}
+          />
         </div>
         <div className={styles.add_comments}>
           <AddComments postId={postId} onCommentAdded={handleCommentAdded} />

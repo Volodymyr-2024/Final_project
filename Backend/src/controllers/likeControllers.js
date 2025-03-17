@@ -33,7 +33,13 @@ export const toggleLike = async (req, res) => {
         postId: postId,
       });
 
-      return res.json({ message: "Like deleted" });
+      const likeCount = await Like.countDocuments({ post: postId });
+      return res.status(200).json({
+        message: "Like deleted",
+        like: existingLike,
+        likeCount,
+        isLiked: false,
+      });
     }
 
     const newLike = new Like({ user: req.userId, post: postId });
@@ -46,7 +52,10 @@ export const toggleLike = async (req, res) => {
     });
     await notification.save();
 
-    res.status(200).json({ message: "Like added", like: newLike });
+    const likeCount = await Like.countDocuments({ post: postId });
+    res
+      .status(200)
+      .json({ message: "Like added", like: newLike, likeCount, isLiked: true });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

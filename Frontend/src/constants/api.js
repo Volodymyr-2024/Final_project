@@ -231,15 +231,24 @@ export const addComment = async (userId, postId, text) => {
   }
 };
 
-export const toggleLike = async (userId, postId) => {
+export const toggleLike = async (postId, token) => {
   try {
-    const response = await api.post("/likes/like", { userId, postId });
+    const response = await api.post(
+      "/likes/like",
+      { postId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error toggling like:", error.response || error);
     throw error;
   }
 };
+
 export const checkUserLike = async (userId, postId) => {
   try {
     const response = await api.post("/likes/check", { userId, postId });

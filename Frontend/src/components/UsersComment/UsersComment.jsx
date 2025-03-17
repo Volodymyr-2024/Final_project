@@ -1,27 +1,8 @@
 import s from "./UsersComment.module.css";
 import heart from "../../assets/heart_like.svg";
 import heartFilled from "../../assets/heart_like_red.svg";
-import { useEffect, useState } from "react";
-import { checkUserLike } from "../../constants/api";
 
-function UsersComment({ image, username, text, likeCount, createdAt, postId }) {
-  const [isLiked, setIsLiked] = useState(false);
-  const userId = localStorage.getItem("userId");
-
-  useEffect(() => {
-    if (!userId || !postId) return;
-    const checkLike = async () => {
-      try {
-        const response = await checkUserLike(userId, postId);
-        setIsLiked(response.isLiked);
-      } catch (error) {
-        console.error("Error checking like:", error);
-      }
-    };
-
-    checkLike();
-  }, [userId, postId]);
-
+function UsersComment({ image, username, text, likeCount, createdAt, like }) {
   return (
     <div className={s.wrapper}>
       <div className={s.image_wrapper}>
@@ -38,7 +19,7 @@ function UsersComment({ image, username, text, likeCount, createdAt, postId }) {
         </div>
       </div>
       <div className={s.img_likes}>
-        <img src={isLiked ? heartFilled : heart} alt="img_like" />
+        <img src={like ? heartFilled : heart} alt="img_like" />
       </div>
     </div>
   );
