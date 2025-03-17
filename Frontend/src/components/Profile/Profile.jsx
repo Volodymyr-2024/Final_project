@@ -17,7 +17,7 @@ function Profile({ editUser }) {
   const storedUserId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const { id } = useParams();
-  const finalUserId = id || storedUserId;
+  const finalUserId = editUser ? storedUserId : id;
 
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);

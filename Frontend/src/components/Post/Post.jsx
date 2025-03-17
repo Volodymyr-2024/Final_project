@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { checkUserLike, toggleLike } from "../../constants/api";
 
 function Post({ post }) {
-  console.log(post);
-
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
