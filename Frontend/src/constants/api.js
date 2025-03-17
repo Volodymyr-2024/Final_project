@@ -163,6 +163,39 @@ export const getFollowing = async (userId) => {
   }
 };
 
+export const followUser = async (followerId, followingId) => {
+  try {
+    const response = await api.post("/followers/follow", {
+      followerId,
+      followingId,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to follow user");
+  }
+};
+
+export const unfollowUser = async (followerId, followingId) => {
+  try {
+    const response = await api.post("/followers/unfollow", {
+      followerId,
+      followingId,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to unfollow user");
+  }
+};
+
+export const getUserFeed = async (userId) => {
+  try {
+    const response = await api.get(`/followers/feed/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to get user feed");
+  }
+};
+
 export const updateUser = async (formData, token) => {
   try {
     const response = await api.put(`/profile/`, formData, {
@@ -303,5 +336,15 @@ export const createPost = async (postData) => {
     throw new Error(
       error.response?.data?.message || error.message || "Error creating post"
     );
+  }
+};
+
+export const getAllPost = async () => {
+  try {
+    const response = await api.get("/posts/allposts");
+    return response.data;
+  } catch (error) {
+    console.error("Error get posts:", error.response || error);
+    throw error;
   }
 };

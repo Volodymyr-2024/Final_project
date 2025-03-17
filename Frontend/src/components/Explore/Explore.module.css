@@ -1,0 +1,10 @@
+.wrapper {
+  display: inline-flex;
+  column-gap: 4px;
+  flex-wrap: wrap;
+  margin: 40px 117px;
+  padding: 50px 20px;
+}
+.img_wrapper > img {
+  cursor: pointer;
+}

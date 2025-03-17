@@ -1,5 +1,11 @@
+import Explore from "../components/Explore/Explore";
+
 function ExplorePage(props) {
-  return <div></div>;
+  return (
+    <div>
+      <Explore />
+    </div>
+  );
 }
 
 export default ExplorePage;

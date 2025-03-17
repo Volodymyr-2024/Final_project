@@ -1,4 +1,7 @@
 import Comment from "../models/commentModel.js";
+import Post from "../models/postModel.js";
+import User from "../models/userModel.js";
+import Notification from "../models/notificationModel.js";
 
 export const addComment = async (req, res) => {
   try {
@@ -11,11 +14,30 @@ export const addComment = async (req, res) => {
         .status(400)
         .json({ message: "User ID and Post ID are required" });
     }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
     const newComment = await new Comment({
       user: userId,
       post: postId,
       text,
     }).save();
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const notification = new Notification({
+      userId: post.author,
+      type: "comment",
+      postId: postId,
+      message: `${user.username} commented on your post: "${text}"`,
+    });
+    await notification.save();
+
     const populatedComment = await Comment.findById(newComment._id).populate({
       path: "user",
       select: "profileImage username",
