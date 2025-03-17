@@ -36,7 +36,13 @@ function Notifications(props) {
                 <div className={styles.content}>
                   <h4>{notif.userId?.username}</h4>
                   <p>
-                    {notif.type === "like" ? "liked" : "commented on"} your post
+                    {notif.type === "like"
+                      ? "liked your post"
+                      : notif.type === "comment"
+                      ? "commented on your post"
+                      : notif.type === "follow"
+                      ? "started following you"
+                      : "stopped following you"}
                   </p>
                 </div>
                 <div className={styles.date}>

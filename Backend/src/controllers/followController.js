@@ -72,10 +72,24 @@ export const followUser = async (req, res) => {
 export const unfollowUser = async (req, res) => {
   try {
     const { followerId, followingId } = req.body;
+
     await Follow.findOneAndDelete({
       follower: followerId,
       following: followingId,
     });
+
+    const followerUser = await User.findById(followerId);
+    if (!followerUser) {
+      return res.status(404).json({ message: "Follower user not found" });
+    }
+
+    const notification = new Notification({
+      userId: followingId,
+      type: "unfollow",
+      message: `${followerUser.username} stopped following you`,
+    });
+    await notification.save();
+
     res.json({ message: "The unsubscribe is success" });
   } catch (error) {
     res.status(500).json({ message: error.message });
