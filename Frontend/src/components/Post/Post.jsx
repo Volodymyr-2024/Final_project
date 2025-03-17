@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkUserLike, toggleLike } from "../../constants/api";
 
-function Post({ post }) {
+function Post({ post, followers, isFollowing, onFollow }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -22,6 +22,7 @@ function Post({ post }) {
 
   useEffect(() => {
     if (!userId || !post.postId) return;
+
     const checkLike = async () => {
       try {
         const response = await checkUserLike(userId, post.postId);
@@ -42,7 +43,7 @@ function Post({ post }) {
     } catch (error) {
       console.error("Error toggling like:", error);
       setIsLiked((prev) => !prev);
-      setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+      setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
     }
   };
 
@@ -65,7 +66,13 @@ function Post({ post }) {
         <span>
           {differenceInDays > 0 ? `${differenceInDays} day` : "Less than a day"}
         </span>
-        <button className={styles.link}>follow</button>
+        <button
+          className={`${styles.link} ${isFollowing ? styles.following : ""}`}
+          onClick={() => onFollow(post.authorId)}
+          disabled={isFollowing}
+        >
+          {isFollowing ? "Following" : "Follow"}
+        </button>
       </div>
       <img
         src={post.image}
@@ -81,9 +88,11 @@ function Post({ post }) {
       />
       <img src={comment} alt="comment_image" />
       <p className={styles.likes}>{likeCount} likes</p>
-      <p className={styles.description}>{post.description || "Нет описания"}</p>
+      <p className={styles.description}>
+        {post.description || "No description"}
+      </p>
       <div>
-        <p className={styles.comments}>
+        <p className={styles.comments} onClick={handleOpenPost}>
           View all comments: ({post.commentCount})
         </p>
       </div>

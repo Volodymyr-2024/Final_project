@@ -114,3 +114,10 @@
   margin-bottom: 37px;
   cursor: pointer;
 }
+.following {
+  color: #737373;
+}
+.following:hover {
+  color: #737373;
+  cursor: auto;
+}

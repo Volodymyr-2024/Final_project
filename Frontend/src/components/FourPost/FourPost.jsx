@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Post from "../Post/Post";
 import styles from "./FourPost.module.css";
-import { fetchFourPosts } from "../../constants/api";
+import { fetchFourPosts, getFollowers, followUser } from "../../constants/api";
 import all_comments from "../../assets/all_comments.svg";
 
 function FourPost() {
@@ -9,39 +9,78 @@ function FourPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  const [followers, setFollowers] = useState({});
+  const [followStatus, setFollowStatus] = useState({});
+
+  const userId = localStorage.getItem("userId");
 
   const getPost = useCallback(async () => {
     try {
       setLoading(true);
       const data = await fetchFourPosts(page);
       setPosts(data);
+
+      const followersData = {};
+      const followStatusData = {};
+      for (const post of data) {
+        const followers = await getFollowers(post.authorId);
+        followersData[post.authorId] = followers;
+
+        const isFollowing = followers.some(
+          (users) =>
+            users.follower._id === userId && users.following === post.authorId
+        );
+        followStatusData[post.authorId] = isFollowing;
+      }
+      setFollowers(followersData);
+      setFollowStatus(followStatusData);
+
       setLoading(false);
     } catch (error) {
       setError(error);
       setLoading(false);
     }
-  }, [page]);
+  }, [page, userId]);
 
   useEffect(() => {
     getPost();
   }, [page, getPost]);
 
+  const handleFollow = async (authorId) => {
+    try {
+      await followUser(userId, authorId);
+
+      setFollowStatus((prev) => ({
+        ...prev,
+        [authorId]: !prev[authorId],
+      }));
+    } catch (error) {
+      console.error("Error following:", error);
+    }
+  };
+
   const handleNextPage = () => setPage(page + 1);
   const handlePrevPage = () => setPage(page - 1);
 
   if (loading) {
-    return <p>Dowloads...</p>;
+    return <p>Loading...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error: {error.message}</p>;
   }
 
   return (
     <div>
       <div className={styles.wrapper}>
         {posts.map((post, index) => (
-          <Post key={index} post={post} />
+          <Post
+            key={index}
+            post={post}
+            followers={followers[post.authorId] || []}
+            isFollowing={followStatus[post.authorId] || false}
+            onFollow={handleFollow}
+          />
         ))}
       </div>
       <div className={styles.button_wrapper}>

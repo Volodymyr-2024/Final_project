@@ -7,7 +7,7 @@ export const getFollowers = async (req, res) => {
   try {
     const followers = await Follow.find({ following: req.params.id }).populate(
       "follower",
-      "username fullname profileImage"
+      "_id username fullname profileImage"
     );
     res.json(followers);
   } catch (error) {
