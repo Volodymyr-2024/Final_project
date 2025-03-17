@@ -165,3 +165,12 @@
 .btn_message:hover {
   background-color: #dbdbdb;
 }
+
+.btn_follow.following {
+  background-color: #efefef;
+  color: black;
+  border: 1px solid #dbdbdb;
+}
+.btn_follow.following:hover {
+  background-color: #dbdbdb;
+}

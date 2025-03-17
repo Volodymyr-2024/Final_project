@@ -2,12 +2,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./Profile.module.css";
 import { useEffect, useState } from "react";
 import web from "../../assets/web.svg";
-
 import {
   getFollowers,
   getFollowing,
   getUserData,
   getUserPost,
+  followUser,
+  unfollowUser,
 } from "../../constants/api";
 import PostCard from "../PostCard/PostCard";
 
@@ -25,6 +26,7 @@ function Profile({ editUser }) {
   const [following, setFollowing] = useState([]);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const postIdFromUrl = new URLSearchParams(search).get("postId");
 
@@ -45,6 +47,7 @@ function Profile({ editUser }) {
     setIsModalOpen(false);
     navigate(window.location.pathname);
   };
+
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -55,6 +58,33 @@ function Profile({ editUser }) {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
+
+  const checkIfFollowing = async () => {
+    try {
+      const followersData = await getFollowers(finalUserId);
+      const isFollowing = followersData.some(
+        (follower) => follower.follower._id === storedUserId
+      );
+      setIsFollowing(isFollowing);
+    } catch (error) {
+      console.error("Error checking follow status:", error);
+    }
+  };
+
+  const handleFollow = async () => {
+    try {
+      if (isFollowing) {
+        await unfollowUser(storedUserId, finalUserId);
+      } else {
+        await followUser(storedUserId, finalUserId, token);
+      }
+      setIsFollowing((prev) => !prev);
+      const updatedFollowers = await getFollowers(finalUserId);
+      setFollowers(updatedFollowers);
+    } catch (error) {
+      console.error("Error following/unfollowing user:", error);
+    }
+  };
 
   useEffect(() => {
     if (!finalUserId) {
@@ -74,6 +104,8 @@ function Profile({ editUser }) {
 
         const followingData = await getFollowing(finalUserId);
         setFollowing(followingData);
+
+        await checkIfFollowing();
       } catch (error) {
         console.error("Error fetching user data or posts:", error);
       }
@@ -112,7 +144,14 @@ function Profile({ editUser }) {
               </button>
             ) : (
               <div className={styles.other_profile_btn_container}>
-                <button className={styles.btn_follow}>Follow</button>
+                <button
+                  className={`${styles.btn_follow} ${
+                    isFollowing ? styles.following : ""
+                  }`}
+                  onClick={handleFollow}
+                >
+                  {isFollowing ? "Following" : "Follow"}
+                </button>
                 <button className={styles.btn_message}>Message</button>
               </div>
             )}
