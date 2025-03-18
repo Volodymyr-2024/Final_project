@@ -7,27 +7,18 @@ function EditProfile(props) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const token = localStorage.getItem("token");
 
   const [formData, setFormData] = useState({
     username: "",
+    password: "",
     website: "",
     bio: "",
   });
   const [file, setFile] = useState(null);
   const dialogRef = useRef(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,20 +32,43 @@ function EditProfile(props) {
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setError("Failed to load user data");
       }
     };
     fetchData();
   }, [id]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSave = async () => {
+    if (formData.password && formData.password.length < 5) {
+      setError("Password must be at least 5 characters long");
+      return;
+    }
+
+    setIsLoading(true);
+    setError("");
+
     try {
       const updatedData = {
         username: formData.username,
+        password: formData.password,
         website: formData.website,
         bio: formData.bio,
       };
       const form = new FormData();
       form.append("username", updatedData.username);
+      form.append("password", updatedData.password);
       form.append("bio", updatedData.bio);
       form.append("website", updatedData.website);
 
@@ -68,6 +82,9 @@ function EditProfile(props) {
     } catch (error) {
       alert("Failed to update profile");
       console.error("Error updating user:", error);
+      setError(error.message || "Failed to update profile");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,6 +95,9 @@ function EditProfile(props) {
   return (
     <div className={styles.wrapper}>
       <h2>Edit Profile</h2>
+
+      {error && <div className={styles.error}>{error}</div>}
+
       <div className={styles.newPhoto}>
         <div className={styles.img_wrapper}>
           <img src={user.profileImage} alt="image_photo" />
@@ -113,6 +133,17 @@ function EditProfile(props) {
           onChange={handleChange}
         />
       </div>
+
+      <div className={styles.input_wrapper}>
+        <h4>Password</h4>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </div>
+
       <div className={styles.input_wrapper}>
         <h4>Website</h4>
         <input

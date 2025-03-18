@@ -56,6 +56,33 @@ export const resetPassword = async (userdata) => {
   }
 };
 
+export const updateUser = async (formData, token) => {
+  try {
+    const response = await api.put(`/profile/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user data:", error.response || error);
+
+    if (
+      error.response?.data?.message ===
+      "Password must be at least 5 characters long"
+    ) {
+      throw new Error("Password must be at least 5 characters long");
+    }
+
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "Error updating user data"
+    );
+  }
+};
+
 export const fetchFourPosts = async (page) => {
   try {
     const response = await api.get(`/posts/fourposts?page=${page}`);
@@ -193,25 +220,6 @@ export const getUserFeed = async (userId) => {
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to get user feed");
-  }
-};
-
-export const updateUser = async (formData, token) => {
-  try {
-    const response = await api.put(`/profile/`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error updating user data:", error.response || error);
-    throw new Error(
-      error.response?.data?.message ||
-        error.message ||
-        "Error updating user data"
-    );
   }
 };
 

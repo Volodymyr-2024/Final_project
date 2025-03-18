@@ -19,7 +19,7 @@ export const getProfile = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const { username, bio, website } = req.body;
+    const { username, bio, website, password } = req.body;
     const user = await User.findById(req.userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -29,6 +29,15 @@ export const updateProfile = async (req, res) => {
     if (website) {
       user.website = website;
     }
+    if (password) {
+      if (password.length < 5) {
+        return res
+          .status(400)
+          .json({ message: "Password must be at least 5 characters long" });
+      }
+      user.password = password;
+    }
+
     if (req.file) {
       const compressedImage = await sharp(req.file.buffer)
         .resize(150, 150, {
