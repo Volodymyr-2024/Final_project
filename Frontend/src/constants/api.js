@@ -377,3 +377,18 @@ export const getAllPost = async () => {
     throw error;
   }
 };
+
+export const updatePost = async (postId, formData) => {
+  try {
+    const response = await api.put(`/posts/${postId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to update post");
+  }
+};

@@ -122,6 +122,15 @@ function Profile({ editUser }) {
     }
   };
 
+  const handlePostUpdate = async () => {
+    try {
+      const userPosts = await getUserPost(finalUserId, token);
+      setPosts(userPosts || []);
+    } catch (error) {
+      console.error("Error fetching posts after update:", error);
+    }
+  };
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -200,7 +209,8 @@ function Profile({ editUser }) {
             <PostCard
               postId={selectedPostId}
               onPostDelete={handlePostDelete}
-              closePostCard={handleCloseModal}
+              
+              onUpdate={handlePostUpdate}
             />
           )}
           <button onClick={handleCloseModal}>Close</button>

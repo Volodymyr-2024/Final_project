@@ -14,7 +14,7 @@ import AddComments from "../AddComments/AddComments";
 import LikesPanel from "../LikesPanel/LikesPanel";
 import ModalWindow from "../ModalWindow/ModalWindow";
 
-function PostCard({ postId, onPostDelete, closePostCard }) {
+function PostCard({ postId, onPostDelete, closePostCard, onUpdate }) {
   const [post, setPost] = useState(null);
   const [arrLikes, setArrLikes] = useState([]);
   const [arrComments, setArrComments] = useState([]);
@@ -37,6 +37,7 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
       setIsLiked((prev) => !prev);
     }
   };
+
   useEffect(() => {
     if (!userId || !postId) return;
     const checkLike = async () => {
@@ -83,6 +84,11 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
 
   const handleCommentAdded = (newComment) => {
     setArrComments((prevComments) => [...prevComments, newComment]);
+  };
+
+  const handleUpdatePost = (updatedPost) => {
+    setPost(updatedPost);
+    setIsModal(false);
   };
 
   if (error) {
@@ -160,10 +166,12 @@ function PostCard({ postId, onPostDelete, closePostCard }) {
         <ModalWindow
           closeModal={() => {
             setIsModal(false);
-            closePostCard();
+            // closePostCard();
           }}
           postId={postId}
           onPostDelete={onPostDelete}
+          post={post}
+          onUpdate={onUpdate}
         />
       )}
     </div>

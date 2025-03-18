@@ -14,7 +14,7 @@ export const getPostsByUser = async (req, res) => {
 
 export const createPost = async (req, res) => {
   const { description } = req.body;
-  if (!description) {
+  if (!description?.trim()) {
     return res.status(404).json({ message: "Description is a must!" });
   }
   let image = null;
@@ -76,20 +76,45 @@ export const getPostById = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
+  if (!req.userId) {
+    return res.status(401).json({ message: "User not authenticated" });
+  }
+
   const { id } = req.params;
-  const { description, image } = req.body;
+  const { description } = req.body;
+
+  if (!description?.trim()) {
+    return res.status(404).json({ message: "Description is a must!" });
+  }
+  let image = null;
+
   try {
     const post = await Post.findById(id);
     if (!post) {
       return res.status(404).json({ message: "The post was not found" });
     }
-    if (post.author.toString() !== req.user.id) {
+
+    if (post.author.toString() !== req.userId) {
       return res
         .status(403)
-        .json({ message: "There are no permissions to delete this post" });
+        .json({ message: "There are no permissions to update this post" });
     }
-    post.description = description || post.description;
-    post.image = image || post.image;
+
+    if (req.file && req.file.buffer) {
+      const compressedImage = await sharp(req.file.buffer)
+        .resize(404, 506, {
+          fit: sharp.fit.cover,
+        })
+        .toBuffer();
+
+      image = `data:${req.file.mimetype};base64,${compressedImage.toString(
+        "base64"
+      )}`;
+    }
+    post.description = description;
+    if (image) {
+      post.image = image;
+    }
     await post.save();
     res.status(200).json(post);
   } catch (error) {

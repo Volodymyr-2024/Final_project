@@ -1,11 +1,11 @@
-import { useLocation } from "react-router-dom";
 import styles from "./ModalWindow.module.css";
 import { deletePost } from "../../constants/api";
+import EditPostModal from "../EditPostModal/EditPostModal";
+import { useState } from "react";
 
-function ModalWindow({ closeModal, postId, onPostDelete }) {
-  const location = useLocation();
-  const postUrl =
-    window.location.origin + location.pathname + `?postId=${postId}`;
+function ModalWindow({ closeModal, postId, onPostDelete, post, onUpdate }) {
+  const postUrl = `${window.location.origin}/posts/${postId}`;
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this post?")) {
@@ -24,8 +24,7 @@ function ModalWindow({ closeModal, postId, onPostDelete }) {
   };
 
   const handleEdit = () => {
-    console.log("Editing post");
-    closeModal(false);
+    setIsEditModalOpen(true);
   };
 
   const handleGoToPost = () => {
@@ -34,9 +33,8 @@ function ModalWindow({ closeModal, postId, onPostDelete }) {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(postUrl).then(() => {
-      alert("Ссылка скопирована!");
+      alert("The link has been copied!");
     });
-    closeModal(false);
   };
 
   return (
@@ -45,13 +43,20 @@ function ModalWindow({ closeModal, postId, onPostDelete }) {
       <p onClick={handleEdit}>Edit</p>
       <p onClick={handleGoToPost}>Go to post</p>
       <p onClick={handleCopyLink}>Copy link</p>
-      <p
-        onClick={() => {
-          closeModal(false);
-        }}
-      >
-        Cancel
-      </p>
+      <p onClick={closeModal}>Cancel</p>
+
+      {isEditModalOpen && (
+        <EditPostModal
+          postId={postId}
+          initialDescription={post.description}
+          initialImage={post.image}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            closeModal();
+          }}
+          onUpdate={onUpdate}
+        />
+      )}
     </div>
   );
 }

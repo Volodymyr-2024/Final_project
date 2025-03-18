@@ -8,7 +8,7 @@ import {
   getPostById,
   getPostsByUser,
   updatePost,
-} from "../controllers/postCotroller.js";
+} from "../controllers/postController.js";
 import { upload } from "../controllers/userController.js";
 
 const router = Router();
@@ -18,6 +18,6 @@ router.get("/", authMiddleware, getPostsByUser);
 router.post("/", authMiddleware, upload.single("image"), createPost);
 router.delete("/:id", authMiddleware, deletePost);
 router.get("/:id", authMiddleware, getPostById);
-router.put("/:id", authMiddleware, updatePost);
+router.put("/:id", authMiddleware, upload.single("image"), updatePost);
 
 export default router;
