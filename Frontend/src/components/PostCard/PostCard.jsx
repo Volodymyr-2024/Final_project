@@ -172,6 +172,7 @@ function PostCard({ postId, onPostDelete, closePostCard, onUpdate }) {
           onPostDelete={onPostDelete}
           post={post}
           onUpdate={onUpdate}
+          update={handleUpdatePost}
         />
       )}
     </div>

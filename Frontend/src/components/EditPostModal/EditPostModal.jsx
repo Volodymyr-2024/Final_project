@@ -8,6 +8,7 @@ function EditPostModal({
   initialImage,
   onClose,
   onUpdate,
+  update,
 }) {
   const [description, setDescription] = useState(initialDescription);
   const [image, setImage] = useState(initialImage);
@@ -60,6 +61,7 @@ function EditPostModal({
 
       const response = await updatePost(postId, formData);
       onUpdate(response);
+      update(response);
       onClose();
     } catch (error) {
       setError(`Failed to update post. Please try again., ${error.message}`);

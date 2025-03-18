@@ -3,7 +3,14 @@ import { deletePost } from "../../constants/api";
 import EditPostModal from "../EditPostModal/EditPostModal";
 import { useState } from "react";
 
-function ModalWindow({ closeModal, postId, onPostDelete, post, onUpdate }) {
+function ModalWindow({
+  closeModal,
+  postId,
+  onPostDelete,
+  post,
+  onUpdate,
+  update,
+}) {
   const postUrl = `${window.location.origin}/posts/${postId}`;
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -55,6 +62,7 @@ function ModalWindow({ closeModal, postId, onPostDelete, post, onUpdate }) {
             closeModal();
           }}
           onUpdate={onUpdate}
+          update={update}
         />
       )}
     </div>
