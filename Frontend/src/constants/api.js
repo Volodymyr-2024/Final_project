@@ -127,6 +127,27 @@ export const getNotifications = async () => {
   }
 };
 
+export const markAsRead = async (notificationId) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.patch(
+      `/notifications/${notificationId}/read`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error marking notification as read:", error);
+    throw new Error(
+      error.response?.data?.message || "Failed to mark notification as read"
+    );
+  }
+};
+
 export const getUserData = async (userId) => {
   try {
     const response = await api.get(`/profile/${userId}`);

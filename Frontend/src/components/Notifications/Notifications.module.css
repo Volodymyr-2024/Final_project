@@ -77,3 +77,6 @@
   border: none;
   border-radius: 8px;
 }
+.list > li {
+  cursor: pointer;
+}

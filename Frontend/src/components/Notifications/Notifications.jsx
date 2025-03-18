@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Notifications.module.css";
-import { getNotifications } from "../../constants/api";
+import { getNotifications, markAsRead } from "../../constants/api";
 
 function Notifications(props) {
   const [notifications, setNotifications] = useState([]);
@@ -9,13 +9,27 @@ function Notifications(props) {
     async function fetchData() {
       try {
         const data = await getNotifications();
-        setNotifications(data);
+        const notificationWithoutTrue = data.filter(
+          (notification) => notification.isRead === false
+        );
+        setNotifications(notificationWithoutTrue);
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
       }
     }
     fetchData();
   }, []);
+
+  const handleNotificationClick = async (notificationId) => {
+    try {
+      await markAsRead(notificationId);
+      setNotifications((prevNotifications) =>
+        prevNotifications.filter((notif) => notif._id !== notificationId)
+      );
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -26,7 +40,11 @@ function Notifications(props) {
       ) : (
         <ul className={styles.list}>
           {notifications.map((notif) => (
-            <li key={notif._id} className={styles.item}>
+            <li
+              key={notif._id}
+              className={styles.item}
+              onClick={() => handleNotificationClick(notif._id)}
+            >
               <img
                 src={notif.userId?.profileImage || "/default-avatar.png"}
                 alt={notif.userId?.username}
