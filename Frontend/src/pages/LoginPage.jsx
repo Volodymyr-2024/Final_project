@@ -1,5 +1,5 @@
 import smart from "../../src/assets/smartphone.png";
-import FormLogin from "../components/FormLogIn/FormLogin";
+import FormLogin from "../components/FormLogin/FormLogin";
 
 function Login(props) {
   return (
