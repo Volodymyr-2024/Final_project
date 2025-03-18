@@ -209,7 +209,7 @@ function Profile({ editUser }) {
             <PostCard
               postId={selectedPostId}
               onPostDelete={handlePostDelete}
-              
+              closePostCard={handleCloseModal}
               onUpdate={handlePostUpdate}
             />
           )}

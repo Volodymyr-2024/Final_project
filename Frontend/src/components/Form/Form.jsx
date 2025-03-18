@@ -1,10 +1,11 @@
 import { useState } from "react";
 import ich_logo from "../../assets/ICHGRA_max.svg";
 import styles from "./Form.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../constants/api";
 
 function Form() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     fullname: "",
@@ -22,9 +23,11 @@ function Form() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await registerUser(formData);
+      await registerUser(formData);
       setMessage("Registration successfully!");
-      console.log(response);
+      setInterval(() => {
+        navigate("/login");
+      }, 1000);
     } catch (error) {
       if (error.message === "User already exist") {
         setMessage("This username is already taken.");
