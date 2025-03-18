@@ -191,7 +191,7 @@ function Profile({ editUser }) {
       {selectedPostId && <div className={styles.overlay}></div>}
 
       <div className={styles.posts}>
-        {posts.slice(0, 6).map((post) => (
+        {posts.slice(0, 12).map((post) => (
           <img
             src={post.image}
             alt="post_image"
