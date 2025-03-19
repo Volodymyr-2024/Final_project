@@ -35,6 +35,7 @@ export const sendMessage = async (req, res) => {
     });
 
     await message.save();
+    console.log("Сообщение сохранено в базе данных:", message);
 
     // Отправляем сообщение через сокет
     req.io.to(targetUserId).emit("receiveMessage", {
