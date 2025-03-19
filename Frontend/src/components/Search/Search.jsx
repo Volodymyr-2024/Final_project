@@ -76,7 +76,7 @@ function Search(props) {
                 }}
               >
                 <img
-                  src={user.profileImage || "/path/to/default-profile.png"}
+                  src={user.profileImage || "/default-profile.png"}
                   alt="icon_user"
                 />
                 <p>{user.username}</p>

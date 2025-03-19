@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 404px 404px;
   gap: 23px 39px;
-  padding: 58px 0 17px 77px;
+  padding: 58px 5px 17px 77px;
 }
 .button_wrapper {
   display: flex;
@@ -43,4 +43,48 @@
   line-height: 16px;
   text-align: center;
   color: #737373;
+}
+/* Медиазапросы для адаптивности */
+@media (max-width: 1024px) {
+  .wrapper {
+    grid-template-columns: 404px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 0;
+  }
+  .all_updates > h3 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .all_updates > p {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+@media (max-width: 480px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 20px 5px 5px;
+  }
+  .all_updates > img {
+    width: 60px;
+    height: 60px;
+  }
+  .all_updates > h3 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .all_updates > p {
+    font-size: 9px;
+    line-height: 12px;
+  }
 }

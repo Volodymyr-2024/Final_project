@@ -16,6 +16,14 @@
 .nav > p {
   margin-right: 42px;
 }
+.nav > p:hover {
+  color: #ff0014;
+}
 .gram {
   margin-bottom: 58px;
+}
+@media (max-width: 480px) {
+  .nav > p {
+    margin-right: 10px;
+  }
 }

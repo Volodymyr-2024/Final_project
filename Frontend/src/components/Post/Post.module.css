@@ -1,6 +1,7 @@
 .wrapper {
   position: relative;
   border-bottom: 1px solid #dbdbdb;
+  width: 404px;
 }
 .header {
   display: flex;
@@ -73,7 +74,7 @@
 .link {
   font-style: normal;
   font-weight: 600;
-  font-size: 12.0585px;
+  font-size: 12px;
   line-height: 16px;
   text-align: center;
   color: #0095f6;
@@ -120,4 +121,28 @@
 .following:hover {
   color: #737373;
   cursor: auto;
+}
+/* Медиазапросы для адаптивности */
+@media (max-width: 480px) {
+  .wrapper {
+    max-width: 350px;
+  }
+
+  .header > p,
+  .header > span,
+  .likes,
+  .description,
+  .comments {
+    font-size: 10px;
+  }
+  .post_img {
+    max-width: 335px;
+  }
+
+  .post_img {
+    margin: 5px 0;
+  }
+  .link {
+    font-size: 10px;
+  }
 }

@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 
 import SignupPage from "./pages/SignupPage";
@@ -24,7 +24,6 @@ function App() {
   return (
     <div className="wrapper">
       <Routes>
-      
         <Route path="/register" element={<SignupPage />} />
         <Route path="/" element={<LoginPage />} />
         <Route path="/reset" element={<ResetPage />} />
