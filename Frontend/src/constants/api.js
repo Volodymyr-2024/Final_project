@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const apiUrl = "https://final-backend-u32j.onrender.com";
+export const apiUrl = "http://localhost:3000";
 
 export const api = axios.create({
-  baseURL: "https://final-backend-u32j.onrender.com",
+  baseURL: "http://localhost:3000",
   headers: { "Content-Type": "application/json" },
 });
 
@@ -416,7 +416,7 @@ export const sendMessage = async (userId, targetUserId, messageText) => {
     const response = await api.post(
       `/messages/${userId}/${targetUserId}`,
       {
-        message_text: messageText,
+        messageText: messageText,
       },
       {
         headers: {
