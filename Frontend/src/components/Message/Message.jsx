@@ -4,16 +4,10 @@ import io from "socket.io-client";
 import { apiUrl, getMessages, sendMessage } from "../../constants/api";
 import { useParams } from "react-router-dom";
 
-const Message = () => {
+const Message = ({ currentUserId, targetUserId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState(null);
-
-  // Получаем userId и targetUserId из URL
-  const { userId: paramUserId, targetUserId: paramTargetUserId } = useParams();
-
-  // Получаем ID текущего пользователя из localStorage
-  const currentUserId = localStorage.getItem("userId");
 
   // Инициализация сокета
   useEffect(() => {
@@ -32,13 +26,13 @@ const Message = () => {
   // Загрузка сообщений при изменении userId или targetUserId
   useEffect(() => {
     fetchMessages();
-  }, [currentUserId, paramTargetUserId]);
+  }, [currentUserId, targetUserId]);
 
   // Функция для загрузки сообщений
   const fetchMessages = async () => {
-    if (!currentUserId || !paramTargetUserId) return; // Проверяем, что ID определены
+    if (!currentUserId || !targetUserId) return; // Проверяем, что ID определены
     try {
-      const data = await getMessages(currentUserId, paramTargetUserId);
+      const data = await getMessages(currentUserId, targetUserId);
       setMessages(data);
     } catch (error) {
       console.error("Ошибка при загрузке сообщений:", error);
@@ -52,9 +46,9 @@ const Message = () => {
     try {
       // Отправляем сообщение через сокет
       socket.emit("sendMessage", {
-        sender_id: currentUserId,
-        receiver_id: paramTargetUserId,
-        message_text: newMessage,
+        senderId: currentUserId,
+        receiverId: targetUserId,
+        messageText: newMessage,
       });
       setNewMessage(""); // Очищаем поле ввода
     } catch (error) {
@@ -69,16 +63,16 @@ const Message = () => {
           <div
             key={message._id}
             className={
-              message.sender_id === currentUserId
+              message.senderId === currentUserId
                 ? styles.myMessage
                 : styles.otherMessage
             }
           >
             <strong>
-              {message.sender_id === currentUserId ? "Вы" : "Собеседник"}:
+              {message.senderId === currentUserId ? "Вы" : "Собеседник"}:
             </strong>
-            <p>{message.message_text}</p>
-            <small>{new Date(message.create_at).toLocaleTimeString()}</small>
+            <p>{message.messageText}</p>
+            <small>{new Date(message.createAt).toLocaleTimeString()}</small>
           </div>
         ))}
       </div>
