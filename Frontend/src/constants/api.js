@@ -1,5 +1,7 @@
 import axios from "axios";
 
+export const apiUrl = "https://final-backend-u32j.onrender.com";
+
 export const api = axios.create({
   baseURL: "https://final-backend-u32j.onrender.com",
   headers: { "Content-Type": "application/json" },
@@ -390,5 +392,41 @@ export const updatePost = async (postId, formData) => {
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to update post");
+  }
+};
+
+export const getMessages = async (userId, targetUserId) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.get(`/messages/${userId}/${targetUserId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error receiving messages:", error);
+    throw error;
+  }
+};
+
+export const sendMessage = async (userId, targetUserId, messageText) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.post(
+      `/messages/${userId}/${targetUserId}`,
+      {
+        message_text: messageText,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error sending a message:", error);
+    throw error;
   }
 };
