@@ -18,15 +18,15 @@ import OtherProfilePage from "./pages/OtherProfilePage";
 
 function App() {
   const location = useLocation();
-  const hideLayoutPages = ["/register", "/login", "/reset"];
+  const hideLayoutPages = ["/register", "/", "/reset"];
   const hideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
     <div className="wrapper">
       <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+      
         <Route path="/register" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/reset" element={<ResetPage />} />
       </Routes>
       {!hideLayout && (
