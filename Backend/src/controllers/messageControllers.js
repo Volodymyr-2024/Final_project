@@ -36,11 +36,13 @@ export const sendMessage = async (req, res) => {
 
     await message.save();
 
+    // Отправляем сообщение через сокет
     req.io.to(targetUserId).emit("receiveMessage", {
       senderId: userId,
       messageText: messageText,
-      createdAt: message.createAt,
+      createAt: message.createAt,
     });
+
     res.status(201).json(message);
   } catch (error) {
     res.status(500).json({ message: "Error sending a message" });

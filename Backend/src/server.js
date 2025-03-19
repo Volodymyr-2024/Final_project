@@ -26,15 +26,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", ({ senderId, receiverId, messageText }) => {
-    const messageData = { senderId, messageText, createdAt: new Date() };
+    const messageData = { senderId, messageText, createAt: new Date() };
     io.to(receiverId).emit("receiveMessage", messageData);
   });
 
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
   });
-});
-
-httpServer.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
 });
