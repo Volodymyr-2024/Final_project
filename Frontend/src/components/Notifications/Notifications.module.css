@@ -80,3 +80,14 @@
 .list > li {
   cursor: pointer;
 }
+
+/*Адптивные стили*/
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 0 10px;
+    width: 370px;
+  }
+  .wrapper > h2 {
+    font-size: 18px;
+  }
+}

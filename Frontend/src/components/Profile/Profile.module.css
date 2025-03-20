@@ -175,16 +175,87 @@
   background-color: #dbdbdb;
 }
 
+/*Адптивные стили*/
+@media (max-width: 1280px) {
+  .posts {
+    padding: 0 50px 70px;
+  }
+  .posts_count {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .posts_count > p {
+    min-width: 85px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .user_wrapper {
+    padding: 20px 20px;
+  }
+  .posts_count > p {
+    min-width: 85px;
+  }
   .posts {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+    padding: 10px;
+  }
+  .posts > img {
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
+  .user_wrapper {
+    padding: 10px;
+  }
+  .user_description {
+    padding: 15px;
+  }
+  .img_wrapper {
+    margin: 20px;
+  }
+}
+@media (max-width: 630px) {
   .posts {
     grid-template-columns: repeat(1, 1fr);
-    gap: 6px;
+    gap: 8px;
+    padding: 10px;
+  }
+  .img_wrapper {
+    margin: 20px 0;
+  }
+}
+@media (max-width: 480px) {
+  .user_description {
+    padding: 15px 5px;
+  }
+  .username {
+    gap: 5px;
+  }
+  .username > h4 {
+    font-size: 18px;
+  }
+  .username > button {
+    width: 112px;
+  }
+  .posts_count {
+    gap: 5px;
+  }
+  .posts_count > p {
+    min-width: auto;
+    font-size: 12px;
+    min-width: fit-content;
+  }
+  .bio {
+    font-size: 12px;
+  }
+  .website {
+    margin-top: 5px;
+  }
+  .website > a {
+    font-size: 12px;
   }
 }

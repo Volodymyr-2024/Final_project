@@ -22,3 +22,13 @@
   color: #000000;
   cursor: pointer;
 }
+
+/*Адптивные стили*/
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 10px;
+  }
+  .wrapper > h2 {
+    font-size: 20px;
+  }
+}

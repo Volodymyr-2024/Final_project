@@ -8,3 +8,27 @@
 .img_wrapper > img {
   cursor: pointer;
 }
+/* Адаптивные стили */
+@media (max-width: 1280px) {
+  .wrapper {
+    margin: 30px 60px;
+    padding: 30px 20px;
+  }
+}
+@media (max-width: 1280px) {
+  .wrapper {
+    margin: 15px auto;
+    padding: 15px 10px;
+    display: flex;
+    justify-content: center;
+  }
+}
+@media (max-width: 410px) {
+  .wrapper {
+    margin: 0 auto;
+    padding: 5px;
+  }
+  .img_wrapper > img {
+    max-width: 355px;
+  }
+}

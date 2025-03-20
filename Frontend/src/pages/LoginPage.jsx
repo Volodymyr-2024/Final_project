@@ -1,20 +1,15 @@
 import smart from "../../src/assets/smartphone.png";
 import FormLogin from "../components/FormLogin/FormLogin";
+import "../App.css";
 
 function Login(props) {
   return (
-    <div style={{ display: "flex", paddingTop: 86, justifyContent: "center" }}>
+    <div className="login_container">
       <div>
         <img
           src={smart}
           alt="Photo_smatphone"
-          style={{
-            width: 380,
-            height: 581,
-            border: "none",
-            display: "block",
-            marginRight: 32,
-          }}
+          className="login_container_img"
         />
       </div>
       <div>

@@ -1,10 +1,12 @@
 import ResetPassword from "../components/ResetPassword/ResetPassword";
 import logo from "../../src/assets/ICHGRA_min.svg";
+import "../App.css";
 
 function ResetPage(props) {
   return (
-    <div style={{ width: 1440, margin: "0 auto" }}>
+    <div className="reset_page_container">
       <div
+        className="reset_page_img_container"
         style={{
           borderBottom: "1px solid #dbdbdb",
           paddingLeft: 44,

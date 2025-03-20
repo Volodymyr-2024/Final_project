@@ -104,9 +104,15 @@
   .link {
     font-size: 18px;
   }
+  .logo_container {
+    margin: 15px 20px;
+  }
 }
 @media (max-width: 480px) {
   .nav_icon_container:not(:last-child) {
     margin-bottom: 16px;
+  }
+  .logo_container {
+    margin: 10px 10px;
   }
 }

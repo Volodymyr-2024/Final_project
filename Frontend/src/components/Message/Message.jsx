@@ -112,9 +112,7 @@ const Message = ({ targetUserId }) => {
         <div className={styles.user_info_wrapper}>
           <div className={styles.img_info_wrapper}>
             <img
-              src={
-                targetUserData.profileImage || "/path/to/default-profile.png"
-              }
+              src={targetUserData.profileImage || "/default-profile.png"}
               alt="user_icon"
             />
           </div>
@@ -134,7 +132,7 @@ const Message = ({ targetUserId }) => {
 
         <div className={styles.messages}>
           {messages.length === 0 ? (
-            <p>Message not found</p>
+            <p style={{ padding: 10 }}>Message not found</p>
           ) : (
             messages.map((message, index) => (
               <div
@@ -151,16 +149,13 @@ const Message = ({ targetUserId }) => {
                 <div className={styles.img_wrapper}>
                   {message.senderId === currentUserId ? (
                     <img
-                      src={
-                        userData.profileImage || "/path/to/default-profile.png"
-                      }
+                      src={userData.profileImage || "/default-profile.png"}
                       alt="user_icon"
                     />
                   ) : (
                     <img
                       src={
-                        targetUserData.profileImage ||
-                        "/path/to/default-profile.png"
+                        targetUserData.profileImage || "/default-profile.png"
                       }
                       alt="user_icon"
                     />
