@@ -75,7 +75,7 @@ function Post({ post, followers, isFollowing, onFollow }) {
         </button>
       </div>
       <img
-        src={post.image}
+        src={post.image || ""}
         alt="post.image"
         className={styles.post_img}
         onClick={handleOpenPost}
