@@ -1,0 +1,13 @@
+.wrapper {
+  padding: 20px;
+}
+.user_wrapper {
+  margin: 20px;
+}
+.img_wrapper {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

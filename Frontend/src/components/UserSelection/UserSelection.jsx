@@ -18,14 +18,18 @@ function UserSelection(props) {
   }, []);
   return (
     <div className={styles.wrapper}>
+      <h2>Select a user from the list with whom you want to start chatting:</h2>
       {users.length > 0 ? (
         users.map((user, index) => (
-          <div key={index}>
-            <div>
-              <img src={user.userImage} alt="user_icon" />
+          <ul key={index} className={styles.user_wrapper}>
+            <div className={styles.img_wrapper}>
+              <img
+                src={user.userImage || "https://www.placeholder.com/150"}
+                alt="user_icon"
+              />
             </div>
-            <h4>{user.username}</h4>
-          </div>
+            <li>{user.username}</li>
+          </ul>
         ))
       ) : (
         <div>No users found</div>

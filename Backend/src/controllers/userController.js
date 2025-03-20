@@ -64,6 +64,7 @@ export const getAllProfile = async (req, res) => {
       return res.status(404).json({ message: "Users not found" });
     }
     const userProfiles = users.map((user) => ({
+      userId: user._id,
       username: user.username,
       userImage: user.profileImage,
     }));
