@@ -80,7 +80,13 @@ const Message = ({ targetUserId }) => {
 
       socket.emit("sendMessage", message, (ack) => {
         if (ack.status === "ok") {
-          setMessages((prev) => [...prev, message]);
+          setMessages((prev) => {
+            const updatedMessages = [...prev, message];
+            if (updatedMessages.length > 6) {
+              updatedMessages.shift();
+            }
+            return updatedMessages;
+          });
         }
       });
       setNewMessage("");
@@ -134,6 +140,9 @@ const Message = ({ targetUserId }) => {
               <div
                 key={index}
                 className={`${styles.img_text_wrapper} ${
+                  index < messages.length - 6 ? "hidden" : ""
+                }
+                ${
                   message.senderId === currentUserId
                     ? styles.myimg_text_wrapper
                     : styles.otherimg_text_wrapper
@@ -187,7 +196,13 @@ const Message = ({ targetUserId }) => {
           <textarea
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Write message"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
+            placeholder="Write a message..."
           />
           <button onClick={handleSendMessage}>Отправить</button>
         </div>

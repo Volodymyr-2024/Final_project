@@ -115,6 +115,8 @@
 }
 .inputArea {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 .inputArea > textarea {
   all: unset;
@@ -128,4 +130,32 @@
   line-height: 18px;
   align-items: center;
   color: #8e8e8e;
+}
+.inputArea > button {
+  margin-top: 16px;
+  margin-right: 26px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  background-color: #efefef;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 30px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.inputArea > button:hover {
+  background-color: #c7bfbf;
+}
+.hidden {
+  display: none;
+}
+.mesages {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }

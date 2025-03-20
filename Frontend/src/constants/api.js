@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const apiUrl = "http://localhost:3000";
+export const apiUrl = "https://final-backend-u32j.onrender.com";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://final-backend-u32j.onrender.com",
   headers: { "Content-Type": "application/json" },
 });
 

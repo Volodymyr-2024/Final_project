@@ -131,6 +131,10 @@ function Profile({ editUser }) {
     }
   };
 
+  const handleMessage = () => {
+    navigate(`/messages/${storedUserId}/${id}`);
+  };
+
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -161,7 +165,9 @@ function Profile({ editUser }) {
                 >
                   {isFollowing ? "Following" : "Follow"}
                 </button>
-                <button className={styles.btn_message}>Message</button>
+                <button className={styles.btn_message} onClick={handleMessage}>
+                  Message
+                </button>
               </div>
             )}
           </div>
