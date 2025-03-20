@@ -65,7 +65,7 @@ export const getAllProfile = async (req, res) => {
     }
     const userProfiles = users.map((user) => ({
       username: user.username,
-      userImage: user.userImage,
+      userImage: user.profileImage,
     }));
     res.json(userProfiles);
   } catch (error) {
