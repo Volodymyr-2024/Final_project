@@ -7,7 +7,6 @@ function Explore(props) {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const userId = localStorage.getItem("userId");
-  console.log(posts);
 
   useEffect(() => {
     const fetchPosts = async () => {

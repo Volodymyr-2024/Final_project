@@ -55,3 +55,20 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const getAllProfile = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const users = await User.find({ _id: { $ne: userId } }).select("-password");
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "Users not found" });
+    }
+    const userProfiles = users.map((user) => ({
+      username: user.username,
+      userImage: user.userImage,
+    }));
+    res.json(userProfiles);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 function Footer(props) {
+  const userId = localStorage.getItem("userId");
   return (
     <div className={styles.wrapper}>
       <div className={styles.nav}>
@@ -15,7 +16,7 @@ function Footer(props) {
           <Link to="/explore">Explore</Link>
         </p>
         <p>
-          <Link to="/messages">Messages</Link>
+          <Link to={`/messages/${userId}`}>Messages</Link>
         </p>
         <p>
           <Link to="/notifications">Notifications</Link>

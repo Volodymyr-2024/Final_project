@@ -18,7 +18,7 @@ function BackMenu() {
     { to: "/main", icon: home, label: "Home" },
     { to: "/search", icon: search, label: "Search" },
     { to: "/explore", icon: explore, label: "Explore" },
-    { to: "/messages", icon: messages, label: "Messages" },
+    { to: `/messages/${userId}`, icon: messages, label: "Messages" },
     { to: "/notifications", icon: notifications, label: "Notifications" },
     { to: "/create", icon: create, label: "Create" },
     {

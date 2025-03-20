@@ -16,6 +16,7 @@ import Footer from "./components/Footer/Footer";
 import CreatePostPage from "./pages/CreatePostPage";
 import OtherProfilePage from "./pages/OtherProfilePage";
 import SendMessagePage from "./pages/SendMessagePage";
+import UserSelection from "./components/UserSelection/UserSelection";
 
 function App() {
   const location = useLocation();
@@ -41,7 +42,11 @@ function App() {
               <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/explore" element={<ExplorePage />} />
               <Route path="/create" element={<CreatePostPage />} />
-              <Route path="/messages/:userId/:targetUserId" element={<SendMessagePage />} />
+              <Route path="/messages/:userId" element={<UserSelection />} />
+              <Route
+                path="/messages/:userId/:targetUserId"
+                element={<SendMessagePage />}
+              />
               <Route path="/profile/:id" element={<ProfilePage />} />
               <Route path="/other-profile/:id" element={<OtherProfilePage />} />
               <Route path="/edit-profile/:id" element={<EdirProfilePage />} />

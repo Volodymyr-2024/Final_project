@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const apiUrl = "http://localhost:3000";
+export const apiUrl = "https://final-backend-u32j.onrender.com";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://final-backend-u32j.onrender.com",
   headers: { "Content-Type": "application/json" },
 });
 
@@ -427,6 +427,21 @@ export const sendMessage = async (userId, targetUserId, messageText) => {
     return response.data;
   } catch (error) {
     console.error("Error sending a message:", error);
+    throw error;
+  }
+};
+
+export const getAllUsers = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.get("/profile/allusers", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error get all users:", error);
     throw error;
   }
 };
