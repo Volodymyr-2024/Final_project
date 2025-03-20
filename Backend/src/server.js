@@ -38,27 +38,33 @@ io.on("connection", (socket) => {
   });
 
   // Отправка сообщения
-  socket.on("sendMessage", ({ senderId, receiverId, messageText }) => {
-    if (!senderId || !receiverId || !messageText) {
-      console.error("Ошибка: не хватает данных для отправки сообщения");
-      return;
+  socket.on(
+    "sendMessage",
+    ({ senderId, receiverId, messageText }, callback) => {
+      if (!senderId || !receiverId || !messageText) {
+        console.error("Missing data for sending message");
+        return callback({ status: "error", message: "Invalid data" });
+      }
+
+      const messageData = {
+        senderId,
+        messageText,
+        createdAt: new Date().toISOString(),
+      };
+      console.log("Сообщение отправлено через WebSocket:", messageData);
+
+      // Отправляем сообщение получателю
+      const receiverSocketId = userSockets.get(receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("receiveMessage", messageData);
+      } else {
+        console.error(`Пользователь ${receiverId} не в сети`);
+      }
+      if (callback) {
+        callback({ status: "ok" });
+      }
     }
-
-    const messageData = {
-      senderId,
-      messageText,
-      createAt: new Date().toISOString(),
-    };
-    console.log("Сообщение отправлено через WebSocket:", messageData);
-
-    // Отправляем сообщение получателю
-    socket.to(receiverId).emit("receiveMessage", messageData);
-
-    // Отправляем сообщение обратно отправителю
-    socket.emit("receiveMessage", messageData);
-
-    io.to(receiverId).emit("receiveMessage", messageData);
-  });
+  );
 
   // Обработка отключения
   socket.on("disconnect", () => {

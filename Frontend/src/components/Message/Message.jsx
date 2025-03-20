@@ -36,12 +36,14 @@ const Message = ({ targetUserId }) => {
     const newSocket = io(apiUrl);
     setSocket(newSocket);
 
+    newSocket.emit("registerUser", currentUserId);
+
     newSocket.on("receiveMessage", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => newSocket.close();
-  }, []);
+  }, [currentUserId]);
 
   useEffect(() => {
     if (!currentUserId || !targetUserId) return;
@@ -61,9 +63,7 @@ const Message = ({ targetUserId }) => {
         }
       }
     };
-
     fetchData();
-
     return () => {
       abortController.abort();
     };
@@ -72,18 +72,17 @@ const Message = ({ targetUserId }) => {
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !socket) return;
     try {
-      // const message = await sendMessage(
-      //   currentUserId,
-      //   targetUserId,
-      //   newMessage
-      // );
+      const message = await sendMessage(
+        currentUserId,
+        targetUserId,
+        newMessage
+      );
 
-      socket.emit("sendMessage", {
-        senderId: currentUserId,
-        receiverId: targetUserId,
-        messageText: newMessage,
+      socket.emit("sendMessage", message, (ack) => {
+        if (ack.status === "ok") {
+          setMessages((prev) => [...prev, message]);
+        }
       });
-      // setMessages((prev) => [...prev, message]);
       setNewMessage("");
     } catch (error) {
       console.error("Ошибка при отправке сообщения:", error);
