@@ -6,15 +6,16 @@
 .main-content {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  position: relative;
 }
 .sidebar {
   width: 244px;
 }
 .content {
   flex: 1;
-  /* overflow-y: auto; */
   border-left: 1px solid #dbdbdb;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
 /* Адаптивные стили */

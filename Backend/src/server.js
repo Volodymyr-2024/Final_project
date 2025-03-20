@@ -41,6 +41,11 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", ({ senderId, receiverId, messageText }) => {
     const messageData = { senderId, messageText, createAt: new Date() };
     console.log("Сообщение отправлено через WebSocket:", messageData);
+    // Отправляем сообщение обратно отправителю
+    socket.emit("receiveMessage", message);
+    // Отправляем сообщение получателю
+    socket.to(receiverId).emit("receiveMessage", message);
+
     io.to(receiverId).emit("receiveMessage", messageData);
   });
 

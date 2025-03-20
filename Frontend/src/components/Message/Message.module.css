@@ -1,0 +1,131 @@
+.user_wrapper {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 12px;
+  border-bottom: 1px solid #dbdbdb;
+}
+.img_wrapper > img {
+  max-width: 44px;
+  height: 44px;
+  border: 1px solid #dbdbdb;
+  border-radius: 50%;
+}
+.user_wrapper > p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  align-items: center;
+  color: #000000;
+}
+.img_info_wrapper > img {
+  max-width: 96px;
+  height: 96px;
+  border: 1px solid #dbdbdb;
+  border-radius: 50%;
+  margin-bottom: 17px;
+}
+.content_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.user_info_wrapper {
+  align-self: center;
+  margin-top: 63px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user_info_wrapper > p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19.8438px;
+  line-height: 25px;
+  text-align: center;
+  color: #000000;
+}
+.user_info_wrapper > span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #737373;
+}
+.btn_container {
+  margin-top: 18px;
+  margin-bottom: 65px;
+}
+.btn_container > button {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  background-color: #efefef;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 48px;
+  cursor: pointer;
+}
+.btn_container > button:hover {
+  background-color: #c7bfbf;
+}
+.img_text_wrapper {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 18px;
+  margin-left: 15px;
+}
+.img_text_wrapper > span {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #65676b;
+  align-self: end;
+}
+.myimg_text_wrapper {
+}
+.otherimg_text_wrapper {
+  justify-content: end;
+}
+.img_wrapper > img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.message_wrapper {
+  background-color: #efefef;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+}
+.myMessage {
+  background-color: #efefef;
+  color: #000000;
+}
+.otherMessage {
+  background-color: #4d00ff;
+  color: #ffffff;
+  justify-content: end;
+}
+.inputArea {
+  padding: 15px;
+}
+.inputArea > textarea {
+  all: unset;
+  width: 95%;
+  border: 1px solid #dbdbdb;
+  border-radius: 22px;
+  padding: 13px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  align-items: center;
+  color: #8e8e8e;
+}

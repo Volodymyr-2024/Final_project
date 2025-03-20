@@ -14,6 +14,7 @@ body {
   font-family: "Roboto", serif;
   max-width: 1440px;
   margin: 0 auto;
+  overflow: auto;
 }
 li {
   list-style: none;

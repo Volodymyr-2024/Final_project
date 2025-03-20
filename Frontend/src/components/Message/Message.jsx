@@ -1,13 +1,36 @@
 import styles from "./Message.module.css";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { apiUrl, getMessages, sendMessage } from "../../constants/api";
+import {
+  apiUrl,
+  getMessages,
+  getUserData,
+  sendMessage,
+} from "../../constants/api";
+import { useNavigate } from "react-router-dom";
 
 const Message = ({ targetUserId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [socket, setSocket] = useState(null);
+  const [targetUserData, setTargetUserData] = useState("");
+  const [userData, setUserData] = useState("");
+  const navigate = useNavigate();
   const currentUserId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const targetUserData = await getUserData(targetUserId);
+        const userData = await getUserData(currentUserId);
+        setTargetUserData(targetUserData);
+        setUserData(userData);
+      } catch (error) {
+        console.error("Error: ", error.message);
+      }
+    };
+    fetchUserData();
+  }, [targetUserId]);
 
   useEffect(() => {
     const newSocket = io(apiUrl);
@@ -54,7 +77,6 @@ const Message = ({ targetUserId }) => {
         targetUserId,
         newMessage
       );
-      console.log(message);
 
       socket.emit("sendMessage", {
         senderId: currentUserId,
@@ -68,37 +90,104 @@ const Message = ({ targetUserId }) => {
     }
   };
 
+  const handleClick = (targetUserId) => {
+    navigate(`/other-profile/${targetUserId}`);
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.messages}>
-        {messages.length === 0 ? (
-          <p>Нет сообщений</p>
-        ) : (
-          messages.map((message, index) => (
-            <div
-              key={index}
-              className={
-                message.senderId === currentUserId
-                  ? styles.myMessage
-                  : styles.otherMessage
-              }
-            >
-              <strong>
-                {message.senderId === currentUserId ? "Вы" : "Собеседник"}:
-              </strong>
-              <p>{message.messageText}</p>
-              <small>{new Date(message.createdAt).toLocaleTimeString()}</small>
-            </div>
-          ))
-        )}
+      <div className={styles.user_wrapper}>
+        <div className={styles.img_wrapper}>
+          <img src={targetUserData.profileImage} alt="" />
+        </div>
+        <p>{targetUserData.username}</p>
       </div>
-      <div className={styles.inputArea}>
-        <textarea
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Введите ваше сообщение..."
-        />
-        <button onClick={handleSendMessage}>Отправить</button>
+
+      <div className={styles.content_wrapper}>
+        <div className={styles.user_info_wrapper}>
+          <div className={styles.img_info_wrapper}>
+            <img
+              src={
+                targetUserData.profileImage || "/path/to/default-profile.png"
+              }
+              alt="user_icon"
+            />
+          </div>
+          <p>{targetUserData.username}</p>
+          <span>{targetUserData.username} ICHgram</span>
+          <div className={styles.btn_container}>
+            <button
+              onClick={() => {
+                handleClick(targetUserId);
+              }}
+            >
+              View profile
+            </button>
+          </div>
+          <span>{targetUserData.createdAt}</span>
+        </div>
+
+        <div className={styles.messages}>
+          {messages.length === 0 ? (
+            <p>Message not found</p>
+          ) : (
+            messages.map((message, index) => (
+              <div
+                key={index}
+                className={`${styles.img_text_wrapper} ${
+                  message.senderId === currentUserId
+                    ? styles.myimg_text_wrapper
+                    : styles.otherimg_text_wrapper
+                }`}
+              >
+                <div className={styles.img_wrapper}>
+                  {message.senderId === currentUserId ? (
+                    <img
+                      src={
+                        userData.profileImage || "/path/to/default-profile.png"
+                      }
+                      alt="user_icon"
+                    />
+                  ) : (
+                    <img
+                      src={
+                        targetUserData.profileImage ||
+                        "/path/to/default-profile.png"
+                      }
+                      alt="user_icon"
+                    />
+                  )}
+                </div>
+                <div
+                  className={`${styles.message_wrapper} ${
+                    message.senderId === currentUserId
+                      ? styles.myMessage
+                      : styles.otherMessage
+                  }`}
+                >
+                  <p
+                    className={
+                      message.senderId === currentUserId
+                        ? styles.myMessage
+                        : styles.otherMessage
+                    }
+                  >
+                    {message.messageText}
+                  </p>
+                </div>
+                <span>{new Date(message.createdAt).toLocaleTimeString()}</span>
+              </div>
+            ))
+          )}
+        </div>
+        <div className={styles.inputArea}>
+          <textarea
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Write message"
+          />
+          <button onClick={handleSendMessage}>Отправить</button>
+        </div>
       </div>
     </div>
   );
