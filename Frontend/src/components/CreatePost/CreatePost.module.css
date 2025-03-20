@@ -141,3 +141,34 @@
   background: #f44336;
   color: white;
 }
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+  .wrapper {
+    width: 500px;
+    height: auto;
+  }
+  .load_img_wrapper {
+    width: 400px;
+    padding: 40px 0;
+  }
+  .rigth_bottom {
+    padding: 40px 0 20px;
+  }
+  .upper_block > h2 {
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 350px;
+    height: auto;
+  }
+  .rigth_bottom {
+    padding: 15px;
+  }
+  .load_img_wrapper > img {
+    max-width: 180px;
+  }
+}

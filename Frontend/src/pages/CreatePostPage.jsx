@@ -1,5 +1,6 @@
 import CreatePost from "../components/CreatePost/CreatePost";
 import ProfilePage from "./ProfilePage";
+import "../App.css";
 
 function CreatePostPage(props) {
   return (
@@ -24,14 +25,7 @@ function CreatePostPage(props) {
       <div style={{ zIndex: 1 }}>
         <ProfilePage />
       </div>
-      <div
-        style={{
-          position: "absolute",
-          zIndex: 3,
-          top: "148px",
-          left: "147px",
-        }}
-      >
+      <div className="create_post_container">
         <CreatePost />
       </div>
     </div>

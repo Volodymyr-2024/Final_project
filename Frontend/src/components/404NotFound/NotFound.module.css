@@ -5,6 +5,13 @@
 .img_container {
   padding: 94px 44px 185px 119px;
 }
+.img_container > img {
+  width: 301px;
+  height: 460px;
+  border: none;
+  display: block;
+  margin-right: 32px;
+}
 .text_container {
   margin-top: 141px;
 }
@@ -23,4 +30,37 @@
   line-height: 20px;
   color: #737373;
   max-width: 475px;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1280px) {
+  .text_container > h2 {
+    font-size: 32px;
+    line-height: normal;
+  }
+}
+@media (max-width: 1024px) {
+  .img_container {
+    padding: 40px 20px;
+  }
+}
+@media (max-width: 640px) {
+  .img_container {
+    display: none;
+  }
+  .text_container {
+    margin: 20px auto;
+    padding: 10px;
+  }
+  .wrapper {
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .text_container > p {
+    font-size: 12px;
+  }
+  .text_container > h2 {
+    font-size: 22px;
+  }
 }

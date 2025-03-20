@@ -188,6 +188,9 @@
   .posts_count > p {
     min-width: 85px;
   }
+  .other_profile_btn_container > button {
+    width: auto;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -204,6 +207,18 @@
   }
   .posts > img {
     margin: 0 auto;
+  }
+  .user_description {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 864px) {
+  .img_wrapper {
+    margin: 20px;
+  }
+  .user_wrapper {
+    padding: 20px 10px;
   }
 }
 
@@ -256,6 +271,10 @@
     margin-top: 5px;
   }
   .website > a {
+    font-size: 12px;
+  }
+  .other_profile_btn_container > button {
+    padding: 5px;
     font-size: 12px;
   }
 }

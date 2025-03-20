@@ -1,6 +1,7 @@
 .wrapper {
   min-width: 244px;
   position: relative;
+  left: 10px;
 }
 .logo_container {
   margin: 28px 25px 33px 25px;
@@ -63,12 +64,25 @@
   left: calc(100% - 84px);
   z-index: 1000;
 }
-
 .burger_line {
   width: 100%;
   height: 3px;
   background: #000;
   transition: all 0.3s ease;
+}
+.line_one {
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+.line_two {
+  display: none;
+}
+.line_three {
+  transform: rotate(-45deg);
+  transition: transform 0.3s ease;
+  position: relative;
+  top: -12px;
+  right: 0;
 }
 
 /* Адаптивные стили */
@@ -85,7 +99,7 @@
     background: #fff;
     z-index: 999;
     transform: translateY(-100%);
-    padding-top: 80px;
+    padding-top: 20px;
     margin-left: 0;
   }
   .nav.nav_open {
@@ -107,12 +121,22 @@
   .logo_container {
     margin: 15px 20px;
   }
+  .nav {
+    background-color: #dbdbdb;
+  }
 }
+
 @media (max-width: 480px) {
   .nav_icon_container:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   .logo_container {
     margin: 10px 10px;
+  }
+  .nav_icon_container > a {
+    font-size: 14px;
+  }
+  .nav_icon_container:last-child {
+    margin-top: 20px;
   }
 }

@@ -134,3 +134,50 @@
 .error {
   color: #f44336;
 }
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+  .wrapper {
+    padding: 20px;
+  }
+  .username {
+    margin: 0 20px;
+  }
+  .btn_wrapper {
+  }
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    padding: 10px;
+  }
+  .username {
+    margin: 5px;
+  }
+  .username > p {
+    font-size: 12px;
+    width: auto;
+  }
+  .newPhoto {
+    margin: 0;
+    padding: 10px;
+    flex-direction: column;
+  }
+  .input_wrapper {
+    margin-top: 5px;
+  }
+  .input_wrapper > h4 {
+    padding-bottom: 5px;
+    font-size: 14px;
+  }
+  .input_wrapper > input {
+    padding: 5px 10px;
+  }
+  .btn_save {
+    display: flex;
+    justify-content: center;
+  }
+  .btn_save > button {
+    margin-top: 20px;
+  }
+}

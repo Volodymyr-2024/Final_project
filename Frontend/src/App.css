@@ -38,11 +38,26 @@
   padding-left: 44px;
   margin-bottom: 84px;
 }
+.create_post_container {
+  position: absolute;
+  z-index: 3;
+  top: 148px;
+  left: 147px;
+}
 
 /* Адаптивные стили */
+@media (max-width: 1280px) {
+  .create_post_container {
+    left: 50px;
+  }
+}
+
 @media (max-width: 1024px) {
   .reset_page_container {
     width: 1024px;
+  }
+  .create_post_container {
+    left: 0;
   }
 }
 
@@ -75,9 +90,16 @@
   .content {
     min-height: auto;
   }
+  .create_post_container {
+    left: 140px;
+  }
 }
+
 @media (max-width: 460px) {
   .reset_page_container {
     width: 375px;
+  }
+  .create_post_container {
+    left: 10px;
   }
 }

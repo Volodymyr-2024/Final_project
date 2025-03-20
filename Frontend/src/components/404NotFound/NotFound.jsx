@@ -5,17 +5,7 @@ function NotFound(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.img_container}>
-        <img
-          src={smart}
-          alt=""
-          style={{
-            width: 301,
-            height: 460,
-            border: "none",
-            display: "block",
-            marginRight: 32,
-          }}
-        />
+        <img src={smart} alt="icon_smart" />
       </div>
       <div className={styles.text_container}>
         <h2>Oops! Page Not Found (404 Error)</h2>

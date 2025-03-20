@@ -39,9 +39,21 @@ function BackMenu() {
       </div>
 
       <button className={styles.burger_menu} onClick={toggleMenu}>
-        <div className={styles.burger_line}></div>
-        <div className={styles.burger_line}></div>
-        <div className={styles.burger_line}></div>
+        <div
+          className={`${styles.burger_line}${
+            isMenuOpen ? ` ${styles.line_one}` : ""
+          }`}
+        ></div>
+        <div
+          className={`${styles.burger_line}${
+            isMenuOpen ? ` ${styles.line_two}` : ""
+          }`}
+        ></div>
+        <div
+          className={`${styles.burger_line}${
+            isMenuOpen ? ` ${styles.line_three}` : ""
+          }`}
+        ></div>
       </button>
 
       <nav className={`${styles.nav} ${isMenuOpen ? styles.nav_open : ""}`}>
