@@ -26,7 +26,7 @@ function Form() {
       await registerUser(formData);
       setMessage("Registration successfully!");
       setInterval(() => {
-        navigate("/login");
+        navigate("/");
       }, 1000);
     } catch (error) {
       if (error.message === "User already exist") {
