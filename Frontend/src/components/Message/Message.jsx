@@ -175,7 +175,11 @@ const Message = ({ targetUserId }) => {
                     {message.messageText}
                   </p>
                 </div>
-                <span>{new Date(message.createdAt).toLocaleTimeString()}</span>
+                <span>
+                  {message.createdAt
+                    ? new Date(message.createdAt).toLocaleTimeString()
+                    : "Time undefined"}
+                </span>
               </div>
             ))
           )}
