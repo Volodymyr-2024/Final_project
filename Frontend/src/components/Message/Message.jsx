@@ -72,18 +72,18 @@ const Message = ({ targetUserId }) => {
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !socket) return;
     try {
-      const message = await sendMessage(
-        currentUserId,
-        targetUserId,
-        newMessage
-      );
+      // const message = await sendMessage(
+      //   currentUserId,
+      //   targetUserId,
+      //   newMessage
+      // );
 
       socket.emit("sendMessage", {
         senderId: currentUserId,
         receiverId: targetUserId,
         messageText: newMessage,
       });
-      setMessages((prev) => [...prev, message]);
+      // setMessages((prev) => [...prev, message]);
       setNewMessage("");
     } catch (error) {
       console.error("Ошибка при отправке сообщения:", error);

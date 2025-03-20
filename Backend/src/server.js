@@ -39,13 +39,19 @@ io.on("connection", (socket) => {
 
   // Отправка сообщения
   socket.on("sendMessage", ({ senderId, receiverId, messageText }) => {
+    if (!senderId || !receiverId || !messageText) {
+      console.error("Ошибка: не хватает данных для отправки сообщения");
+      return;
+    }
+
     const messageData = { senderId, messageText, createAt: new Date() };
     console.log("Сообщение отправлено через WebSocket:", messageData);
 
-    // Отправляем сообщение обратно отправителю
-    socket.emit("receiveMessage", messageData);
     // Отправляем сообщение получателю
     socket.to(receiverId).emit("receiveMessage", messageData);
+
+    // Отправляем сообщение обратно отправителю
+    socket.emit("receiveMessage", messageData);
 
     io.to(receiverId).emit("receiveMessage", messageData);
   });
