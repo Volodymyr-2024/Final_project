@@ -64,7 +64,7 @@ function FormLogin(props) {
             onChange={handlePasswordChange}
           />
         </div>
-        <button>Sign up</button>
+        <button>Log in</button>
         <div className={styles.or}>
           <span className={styles.lineLeft}></span>
           <p>OR</p>
