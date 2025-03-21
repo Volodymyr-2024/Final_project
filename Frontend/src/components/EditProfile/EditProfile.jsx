@@ -62,15 +62,22 @@ function EditProfile(props) {
     try {
       const updatedData = {
         username: formData.username,
-        password: formData.password,
         website: formData.website,
         bio: formData.bio,
       };
+
+      if (formData.password) {
+        updatedData.password = formData.password;
+      }
+
       const form = new FormData();
       form.append("username", updatedData.username);
-      form.append("password", updatedData.password);
       form.append("bio", updatedData.bio);
       form.append("website", updatedData.website);
+
+      if (updatedData.password) {
+        form.append("password", updatedData.password);
+      }
 
       if (file) {
         form.append("profileImage", file);
