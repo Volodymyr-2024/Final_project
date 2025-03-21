@@ -25,7 +25,7 @@ function Form() {
     try {
       await registerUser(formData);
       setMessage("Registration successfully!");
-      setInterval(() => {
+      setTimeout(() => {
         navigate("/");
       }, 1000);
     } catch (error) {
