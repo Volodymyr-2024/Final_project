@@ -32,7 +32,9 @@ function FormLogin(props) {
       localStorage.setItem("userId", response.userId);
 
       setMessage("Login successfully!");
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       setMessage(
         error.response?.data?.message || error.message || "Login failed"
