@@ -101,3 +101,10 @@
   line-height: 16px;
   color: #ff0014;
 }
+
+/* Адаптивные стили */
+@media (max-width: 460px) {
+  .form_container > button {
+    padding: 8px 60px;
+  }
+}

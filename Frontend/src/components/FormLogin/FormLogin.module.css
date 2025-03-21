@@ -123,3 +123,9 @@
   color: #ff0014;
   text-align: center;
 }
+
+@media (max-width: 460px) {
+  .form_container > button {
+    padding: 8px 60px;
+  }
+}
