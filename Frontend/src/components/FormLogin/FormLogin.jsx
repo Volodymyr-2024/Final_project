@@ -33,7 +33,7 @@ function FormLogin(props) {
 
       setMessage("Login successfully!");
       setTimeout(() => {
-        navigate("/");
+        navigate("/main");
       }, 1000);
     } catch (error) {
       setMessage(
