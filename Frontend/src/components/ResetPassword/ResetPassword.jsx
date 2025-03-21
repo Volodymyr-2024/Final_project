@@ -89,7 +89,7 @@ function ResetPassword(props) {
       </div>
       <div className={styles.bottom_container}>
         <h5>
-          <Link to="/login" className={styles.link}>
+          <Link to="/" className={styles.link}>
             Back to login
           </Link>
         </h5>
