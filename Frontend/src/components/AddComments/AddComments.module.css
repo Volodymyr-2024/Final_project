@@ -27,3 +27,10 @@
   border: none;
   background-color: #ffffff;
 }
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+  .wrapper {
+    width: auto;
+  }
+}

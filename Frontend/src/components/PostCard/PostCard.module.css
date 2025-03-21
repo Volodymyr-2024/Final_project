@@ -3,7 +3,7 @@
   background-color: #ffffff;
   height: 722px;
   position: relative;
-  max-width: calc(1196px + 245px);
+  /* max-width: calc(1196px + 245px); */
   margin: 0 auto;
 }
 .right_wrapper {
@@ -113,53 +113,46 @@
   z-index: 12;
   background: rgb(0, 0, 0, 0.65);
 }
-/* Адаптивность для планшетов */
+
+/* Адаптивные стили */
+@media (max-width: 1280px) {
+}
+
 @media (max-width: 1024px) {
-  .wrapper {
-    flex-direction: column; /* Вертикальная ориентация */
-    max-width: 100%; /* Полная ширина */
-  }
-
   .photo_wrapper > img {
-    width: 100%;
-    max-height: 400px; /* Ограничение высоты изображения */
+    width: 400px;
   }
-
   .right_wrapper {
-    padding: 10px;
+    width: 350px;
+  }
+  .user_wrapper > h4 {
+    margin-right: 190px;
   }
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .wrapper {
     flex-direction: column;
     height: auto;
     max-width: 100%;
   }
-
   .photo_wrapper > img {
     width: 100%;
-    max-height: 300px; /* Уменьшаем высоту на мобильных */
+    max-height: 300px;
   }
-
   .right_wrapper {
     padding: 10px;
   }
-
   .user_wrapper > h4 {
     font-size: 10px;
   }
-
   .description > h4,
   .description > p {
     font-size: 10px;
   }
-
   .date > span {
     font-size: 8px;
   }
-
   .users_wrapper {
     padding: 10px;
   }

@@ -191,6 +191,10 @@
   .other_profile_btn_container > button {
     width: auto;
   }
+  .dialog {
+    left: 16px;
+    width: auto;
+  }
 }
 
 @media (max-width: 1024px) {
