@@ -88,7 +88,7 @@ function Form() {
       <div className={styles.account_container}>
         <p>
           Have an account?{" "}
-          <Link to="/login" className={styles.link}>
+          <Link to="/" className={styles.link}>
             Log in
           </Link>
         </p>
