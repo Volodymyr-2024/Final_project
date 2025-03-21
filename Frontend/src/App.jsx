@@ -20,14 +20,14 @@ import UserSelection from "./components/UserSelection/UserSelection";
 
 function App() {
   const location = useLocation();
-  const hideLayoutPages = ["/register", "/", "/reset"];
+  const hideLayoutPages = ["/register", "/login", "/reset"];
   const hideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
     <div className="wrapper">
       <Routes>
         <Route path="/register" element={<SignupPage />} />
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/reset" element={<ResetPage />} />
       </Routes>
       {!hideLayout && (
@@ -37,7 +37,7 @@ function App() {
           </div>
           <div className="content">
             <Routes>
-              <Route path="/main" element={<MainPage />} />
+              <Route path="/" element={<MainPage />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/explore" element={<ExplorePage />} />
